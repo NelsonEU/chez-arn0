@@ -7,13 +7,17 @@
       "description": "Poulet effiloché, boulettes maison et champignons, enrobés d'une béchamel au bouillon de poule et au citron.",
       "image": "/images/recipes/vol-au-vent.png",
       "ingredients": [
-        "50 g de farine",
-        "50 g de beurre",
-        "50 cl de bouillon de poule",
-        "Le jus d'1/2 citron",
-        "200 g de haché porc/veau",
-        "250 g de poulet",
-        "100 g de champignons"
+        {
+          "items": [
+            { "count": 50, "unit": "g", "label": "de farine" },
+            { "count": 50, "unit": "g", "label": "de beurre" },
+            { "count": 50, "unit": "cl", "label": "de bouillon de poule" },
+            { "prefix": "Jus d'", "count": 0.5, "label": "citron" },
+            { "count": 200, "unit": "g", "label": "de viande hachée (porc/veau)" },
+            { "count": 250, "unit": "g", "label": "de poulet" },
+            { "count": 100, "unit": "g", "label": "de champignons" }
+          ]
+        }
       ],
       "steps": [
         "Préparer une casserole d'eau avec un peu de bouillon pour cuire le filet de poulet. Saisir le filet 30 secondes de chaque côté à feu vif, puis le laisser cuire 15 à 20 minutes dans le bouillon à petit feu. Une fois cuit, l'effilocher.",
@@ -23,6 +27,53 @@
         "Faire fondre le beurre dans une autre casserole, puis ajouter la farine d'un coup. Remuer doucement pour faire un roux sans grumeaux, puis ajouter le bouillon petit à petit en remuant constamment. Ajouter le jus de citron, saler et poivrer.",
         "Ajouter le poulet, les boulettes et les champignons dans la béchamel.",
         "Optionnel : ajouter un peu de crème légère (ou un peu d'eau si c'est trop épais)."
+      ]
+    },
+    {
+      "slug": "fondue-glareyarde",
+      "title": "Fondue Glareyarde",
+      "servings": "3 à 4 personnes",
+      "description": "Bœuf mariné au vin rouge et aux herbes, cuit à table dans un bouillon au vin blanc et à l'oignon clouté. Servi avec frites maison et sauces.",
+      "note": "Choisissez une viande de bœuf de première qualité, bien tendre. Le secret de la glareyarde, c'est la marinade : n'hésitez pas à laisser mariner jusqu'à 24 heures pour un goût plus prononcé.",
+      "image": "/images/recipes/fondue-glareyarde.jpg",
+      "ingredients": [
+        {
+          "name": "Pour la viande et la marinade",
+          "items": [
+            { "count": 800, "unit": "g", "label": "de bœuf (filet ou rumsteck)", "note": "Coupé en petits morceaux rectangulaires" },
+            { "count": 100, "unit": "ml", "label": "de vin rouge", "note": "Un vin du Valais, comme un Humagne Rouge ou un Pinot Noir" },
+            { "count": 2, "unit": "c. à s.", "label": "d'herbes de Provence" },
+            { "count": 1, "unit": "c. à c.", "label": "de paprika fumé", "note": "Pour le petit goût de viande séchée" },
+            { "count": 1, "unit": "c. à c.", "label": "de mélange 5 baies", "note": "Fraîchement moulu" },
+            { "count": 1, "unit": "gousse", "label": "d'ail", "note": "Hachée finement" },
+            { "count": 1, "unit": "pincée", "label": "de sel" }
+          ]
+        },
+        {
+          "name": "Pour le bouillon",
+          "items": [
+            { "count": 1, "unit": "L", "label": "de bouillon de bœuf" },
+            { "count": 250, "unit": "ml", "label": "de vin blanc sec", "note": "Un Fendant du Valais" },
+            { "count": 1, "label": "oignon", "note": "Piqué d'un clou de girofle" },
+            { "count": 1, "unit": "feuille", "label": "de laurier" },
+            { "label": "Sel, poivre" }
+          ]
+        },
+        {
+          "name": "Accompagnements suggérés",
+          "items": [
+            { "label": "Frites maison" },
+            { "label": "Salade" },
+            { "label": "Sauces béarnaise, poivre, choron" }
+          ]
+        }
+      ],
+      "steps": [
+        "Mélanger le bœuf avec le vin rouge, l'ail, les herbes de Provence, le paprika fumé et le mélange 5 baies. Saler légèrement.",
+        "Couvrir et laisser mariner au réfrigérateur au moins 4 heures, idéalement toute une nuit.",
+        "Préparer les frites maison et la salade.",
+        "Verser le bouillon de bœuf et le vin blanc dans le caquelon. Ajouter l'oignon clouté et la feuille de laurier. Porter à frémissement, saler, poivrer.",
+        "Poser le caquelon sur le réchaud allumé, au centre de la table. Disposer la viande marinée, les frites et les sauces autour."
       ]
     }
   ]
