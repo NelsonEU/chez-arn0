@@ -1,0 +1,29 @@
+{
+  "recipes": [
+    {
+      "slug": "vol-au-vent",
+      "title": "Vol au Vent",
+      "servings": "2 à 3 personnes",
+      "description": "Poulet effiloché, boulettes maison et champignons, enrobés d'une béchamel au bouillon de poule et au citron.",
+      "image": "/images/recipes/vol-au-vent.png",
+      "ingredients": [
+        "50 g de farine",
+        "50 g de beurre",
+        "50 cl de bouillon de poule",
+        "Le jus d'1/2 citron",
+        "200 g de haché porc/veau",
+        "250 g de poulet",
+        "100 g de champignons"
+      ],
+      "steps": [
+        "Préparer une casserole d'eau avec un peu de bouillon pour cuire le filet de poulet. Saisir le filet 30 secondes de chaque côté à feu vif, puis le laisser cuire 15 à 20 minutes dans le bouillon à petit feu. Une fois cuit, l'effilocher.",
+        "Dans la même eau, cuire les boulettes.",
+        "Faire revenir les champignons dans la poêle qui a servi à saisir le poulet.",
+        "Préparer le bouillon de poule.",
+        "Faire fondre le beurre dans une autre casserole, puis ajouter la farine d'un coup. Remuer doucement pour faire un roux sans grumeaux, puis ajouter le bouillon petit à petit en remuant constamment. Ajouter le jus de citron, saler et poivrer.",
+        "Ajouter le poulet, les boulettes et les champignons dans la béchamel.",
+        "Optionnel : ajouter un peu de crème légère (ou un peu d'eau si c'est trop épais)."
+      ]
+    }
+  ]
+}

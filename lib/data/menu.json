@@ -1,0 +1,72 @@
+{
+  "categories": [
+    {
+      "name": "Viandes",
+      "items": [
+        "pain de viande",
+        "tomates farçies",
+        "courgettes farçies",
+        "oiseau sans tête",
+        "escalope tomates-mozza",
+        "poulet à l'estragon",
+        "blanquette de veau",
+        "filet d'agneau",
+        "scaloppine al limone",
+        "boeuf bourguignon",
+        "poulet sauce muscat",
+        "steak frites",
+        "steak haché",
+        "hachis parmentier",
+        "polpette",
+        "chili con carne",
+        "poireaux gratin",
+        "couscous",
+        "poulet rôti",
+        "kleftiko",
+        "vol au vent",
+        "saucisses"
+      ]
+    },
+    {
+      "name": "Poissons",
+      "items": [
+        "papillote de poisson du jour feta poivron",
+        "tomâtes farcies à la sole",
+        "truite saumonée poelée"
+      ]
+    },
+    {
+      "name": "Pâtes",
+      "items": [
+        "tagliatelles poulet & pesto",
+        "spaghetti bolognese",
+        "gnocchi sauce tomates",
+        "penne sauce arrabiatta",
+        "grâtin de fusilli au thon",
+        "spaghetti carbonara",
+        "macaronis jambon/fromage",
+        "linguine sauce tomates maison",
+        "lasagne"
+      ]
+    },
+    {
+      "name": "Accompagnements",
+      "items": [
+        "frites",
+        "pommes de terre rôties",
+        "pommes de terre rissolées",
+        "purée de pommes de terre",
+        "gratin dauphinois",
+        "riz",
+        "pâtes greques",
+        "brocoli",
+        "grâtin de choux-fleur",
+        "ratatouille",
+        "petits pois & carottes",
+        "epinards/poireaux à la crême",
+        "compote de pommes",
+        "demi poireaux poelés"
+      ]
+    }
+  ]
+}

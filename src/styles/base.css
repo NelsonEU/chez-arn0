@@ -1,0 +1,36 @@
+:root {
+  --bg: #1B2738;
+  --bg-panel: #223148;
+  --text: #E7ECF3;
+  --text-strong: #F1F4F9;
+  --text-muted: #9EAABB;
+  --accent: #EFAE84;
+  --accent-soft: rgba(232, 168, 124, 0.6);
+  --border-soft: rgba(232, 240, 250, 0.14);
+  --border-soft-2: rgba(232, 240, 250, 0.13);
+  --border-soft-3: rgba(232, 240, 250, 0.18);
+  --font-serif-display: 'Cormorant Garamond', Georgia, serif;
+  --font-serif-body: 'Source Serif 4', Georgia, serif;
+  --font-sans: 'IBM Plex Sans', system-ui, sans-serif;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: var(--bg);
+  background-image:
+    radial-gradient(1100px 620px at 8% -8%, rgba(232, 168, 124, 0.13), transparent 68%),
+    radial-gradient(900px 640px at 102% 4%, rgba(120, 165, 215, 0.16), transparent 70%);
+  color: var(--text);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  box-sizing: border-box;
+}
+
+a {
+  color: var(--accent);
+  text-decoration: none;
+}
+a:hover {
+  color: var(--text-strong);
+}
