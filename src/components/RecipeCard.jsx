@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 
 export default function RecipeCard({ recipe }) {
   return (
-    <Link className="card" to={`/recipes/${recipe.slug}`}>
+    <Link className="card" to={`/recettes/${recipe.slug}`}>
       {recipe.image ? (
         <img src={recipe.image} alt={recipe.title} loading="lazy" />
       ) : (

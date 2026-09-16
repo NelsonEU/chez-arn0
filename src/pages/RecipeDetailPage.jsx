@@ -17,7 +17,7 @@ export default function RecipeDetailPage() {
     <>
       <SiteHeader page="recipes" />
       <div className="recipe-detail">
-        <Link className="back" to="/recipes">
+        <Link className="back" to="/">
           ← Toutes les recettes
         </Link>
         {recipe && <RecipeDetails recipe={recipe} />}

@@ -6,9 +6,9 @@ import RecipeDetailPage from './pages/RecipeDetailPage.jsx';
 export default function App() {
   return (
     <Routes>
-      <Route path="/" element={<MenuPage />} />
-      <Route path="/recipes" element={<RecipesPage />} />
-      <Route path="/recipes/:slug" element={<RecipeDetailPage />} />
+      <Route path="/" element={<RecipesPage />} />
+      <Route path="/menu" element={<MenuPage />} />
+      <Route path="/recettes/:slug" element={<RecipeDetailPage />} />
     </Routes>
   );
 }

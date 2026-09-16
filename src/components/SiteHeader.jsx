@@ -13,11 +13,11 @@ export default function SiteHeader({ page = 'menu' }) {
         <h1>Chez Arnaud</h1>
         <div className="subtitle">{SUBTITLES[page] || ''}</div>
         <nav>
-          <Link to="/" className={page === 'menu' ? 'active' : ''}>
-            Menu
-          </Link>
-          <Link to="/recipes" className={page === 'recipes' ? 'active' : ''}>
+          <Link to="/" className={page === 'recipes' ? 'active' : ''}>
             Recettes
+          </Link>
+          <Link to="/menu" className={page === 'menu' ? 'active' : ''}>
+            Menu
           </Link>
         </nav>
       </div>
