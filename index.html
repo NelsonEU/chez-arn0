@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="" />
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,500;1,8..60,400&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet" />
+<style>
+  body { margin: 0; background: #1B2738; -webkit-font-smoothing: antialiased; }
+  a { color: #EFAE84; text-decoration: none; }
+  a:hover { color: #F1F4F9; }
+</style>
+</helmet>
+<div style="min-height: 100vh; background: #1B2738; background-image: radial-gradient(1100px 620px at 8% -8%, rgba(232, 168, 124, 0.13), transparent 68%), radial-gradient(900px 640px at 102% 4%, rgba(120, 165, 215, 0.16), transparent 70%); color: #E7ECF3; font-family: 'IBM Plex Sans', system-ui, sans-serif; box-sizing: border-box;">
+
+  <header style="background: #223148; color: #F1F4F9; padding: clamp(34px, 7vw, 52px) clamp(18px, 5vw, 28px) clamp(26px, 5vw, 44px); border-bottom: 1px solid rgba(232, 240, 250, 0.14);">
+    <div style="max-width: 1120px; margin: 0 auto; display: flex; flex-direction: column; gap: 8px;">
+      <h1 style="margin: 0; font-family: 'Cormorant Garamond', Georgia, serif; font-weight: 500; font-size: clamp(48px, 9vw, 92px); line-height: 0.92; letter-spacing: -0.01em;">Chez Arnaud</h1>
+      <div style="font-family: 'Cormorant Garamond', Georgia, serif; font-size: 21px; font-style: italic; color: #EFAE84;">La carte de la maison</div>
+    </div>
+  </header>
+
+  <div style="max-width: 1120px; margin: 0 auto; padding: clamp(28px, 6vw, 44px) clamp(18px, 5vw, 28px) 72px;">
+
+    <main style="columns: 252px; column-gap: 40px; max-width: 100%;">
+      <sc-for list="{{ categories }}" as="cat" hint-placeholder-count="4">
+        <section style="break-inside: avoid; margin: 0 0 34px; padding: 0;">
+          <div style="display: flex; align-items: baseline; justify-content: space-between; gap: 12px; padding-bottom: 8px; border-bottom: 2px solid rgba(232, 168, 124, 0.6);">
+            <h2 style="margin: 0; font-size: 11px; font-weight: 600; letter-spacing: 0.22em; text-transform: uppercase; color: #EFAE84;">{{ cat.name }}</h2>
+          </div>
+          <sc-for list="{{ cat.dishes }}" as="dish" hint-placeholder-count="6">
+            <div style="display: flex; align-items: baseline; gap: 12px; padding: 7px 6px 7px 0; border-bottom: 1px solid rgba(232, 240, 250, 0.13); cursor: default; transition: color 0.15s ease, padding-left 0.15s ease;" style-hover="color: #EFAE84; padding-left: 5px;">
+              <span style="font-family: 'Source Serif 4', Georgia, serif; font-size: 15.5px; line-height: 1.4; letter-spacing: 0.005em;">{{ dish }}</span>
+            </div>
+          </sc-for>
+        </section>
+      </sc-for>
+    </main>
+
+    <footer style="margin-top: 34px; padding-top: 18px; border-top: 1px solid rgba(232, 240, 250, 0.18); display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: #9EAABB;">
+      <span>chez.arn0.be</span>
+      <span>{{ note }}</span>
+    </footer>
+
+  </div>
+</div>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{}">
+class Component extends DCLogic {
+  state = { data: null, error: null };
+
+  componentDidMount() {
+    fetch('./menu.json', { cache: 'no-store' })
+      .then(r => r.json())
+      .then(data => this.setState({ data }))
+      .catch(e => this.setState({ error: String(e) }));
+  }
+
+  renderVals() {
+    const data = this.state.data;
+    const cats = (data && data.categories) || [];
+    const categories = cats.map(c => ({
+      name: c.name,
+      count: String((c.dishes || []).length).padStart(2, '0'),
+      dishes: c.dishes || []
+    }));
+    const total = cats.reduce((n, c) => n + (c.dishes || []).length, 0) || '';
+    return {
+      categories,
+      total,
+      note: this.state.error ? 'menu.json introuvable' : 'Service continu'
+    };
+  }
+}
+
+</script>
+</body>
+</html>
