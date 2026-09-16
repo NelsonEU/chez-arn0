@@ -30,6 +30,14 @@
       ]
     },
     {
+      "name": "Poissons",
+      "dishes": [
+        "PAPILLOTE DE POISSON DU JOUR FETA POIVRON",
+        "TOMÂTES FARCIES À LA SOLE",
+        "TRUITE SAUMONÉE POELÉE"
+      ]
+    },
+    {
       "name": "Pâtes",
       "dishes": [
         "TAGLIATELLES POULET & PESTO",
@@ -41,14 +49,6 @@
         "MACARONIS JAMBON/FROMAGE",
         "LINGUINE SAUCE TOMATES MAISON",
         "LASAGNE"
-      ]
-    },
-    {
-      "name": "Poissons",
-      "dishes": [
-        "PAPILLOTE DE POISSON DU JOUR FETA POIVRON",
-        "TOMÂTES FARCIES À LA SOLE",
-        "TRUITE SAUMONÉE POELÉE"
       ]
     },
     {
