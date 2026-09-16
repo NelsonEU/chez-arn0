@@ -75,6 +75,48 @@
         "Verser le bouillon de bœuf et le vin blanc dans le caquelon. Ajouter l'oignon clouté et la feuille de laurier. Porter à frémissement, saler, poivrer.",
         "Poser le caquelon sur le réchaud allumé, au centre de la table. Disposer la viande marinée, les frites et les sauces autour."
       ]
+    },
+    {
+      "slug": "kleftiko",
+      "title": "Kleftiko",
+      "servings": "3 à 4 personnes",
+      "description": "Médaillons d'agneau marinés au citron et aux herbes, mijotés en cocotte avec poivrons, tomates et oignons, feta dorée en fin de cuisson.",
+      "note": "Pour plus de jus, ajouter un peu de vin blanc. Pour une feta bien dorée, terminer quelques minutes en mode grill.",
+      "image": "/images/recipes/kleftiko.jpg",
+      "ingredients": [
+        {
+          "name": "Pour la marinade",
+          "items": [
+            { "prefix": "Jus d'", "count": 1, "label": "citron" },
+            { "count": 4, "unit": "c. à s.", "label": "d'huile d'olive" },
+            { "count": 2, "unit": "gousses", "label": "d'ail" },
+            { "count": 1, "unit": "c. à c.", "label": "d'origan séché" },
+            { "count": 1, "unit": "c. à c.", "label": "de romarin séché" },
+            { "count": 1, "unit": "c. à c.", "label": "de thym séché", "note": "Facultatif" },
+            { "label": "Sel, poivre" }
+          ]
+        },
+        {
+          "name": "Pour la cocotte",
+          "items": [
+            { "count": 4, "unit": "médaillons", "label": "d'agneau (200 g chacun)" },
+            { "count": 3, "label": "poivrons" },
+            { "count": 2, "label": "oignons" },
+            { "count": 3, "label": "tomates" },
+            { "count": 2, "unit": "feuilles", "label": "de laurier" },
+            { "count": 1, "unit": "L", "label": "de bouillon", "note": "Légumes, volaille ou agneau, au choix. Quantité à jauger" },
+            { "count": 200, "unit": "g", "label": "de feta", "note": "À ajouter en fin de cuisson" }
+          ]
+        }
+      ],
+      "steps": [
+        "Mélanger le jus de citron, l'huile d'olive, l'ail, l'origan et le thym. Saler, poivrer, puis enrober les médaillons d'agneau. Laisser mariner au moins 30 minutes.",
+        "Saisir les médaillons à la poêle sur toutes les faces, jusqu'à belle coloration.",
+        "Dans une cocotte, disposer l'agneau saisi avec les poivrons, les oignons, les tomates et les feuilles de laurier. Verser le bouillon.",
+        "Cuire à couvert 3 heures à 140°C.",
+        "10 à 15 minutes avant la fin, retirer le couvercle, ajouter la feta et laisser dorer.",
+        "Servir bien chaud, arrosé du jus de cuisson."
+      ]
     }
   ]
 }
