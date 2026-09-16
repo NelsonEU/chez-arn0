@@ -50,6 +50,17 @@
       ]
     },
     {
+      "name": "Autour de la table",
+      "items": [
+        "pierrade",
+        "fondue bourguignonne",
+        "fondue glareyarde",
+        "fondue chinoise",
+        "fondue valaisanne",
+        "raclette"
+      ]
+    },
+    {
       "name": "Accompagnements",
       "items": [
         "frites",
