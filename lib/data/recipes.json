@@ -105,8 +105,13 @@
             { "count": 4, "unit": "médaillons", "label": "d'agneau (200 g chacun)" },
             { "count": 3, "label": "poivrons" },
             { "count": 4, "label": "pommes de terre" },
-            { "count": 2, "label": "oignons" },
             { "count": 3, "label": "tomates" },
+            { "count": 2, "label": "oignons" },
+            { "count": 1, "unit": "gousse", "label": "d'ail" },
+            { "count": 1, "unit": "c. à c.", "label": "de miel" },
+            { "count": 1, "unit": "branche", "label": "de romarin frais" },
+            { "count": 1, "unit": "c. à c.", "label": "d'origan séché" },
+            { "count": 1, "unit": "c. à c.", "label": "de thym séché", "note": "Facultatif" },
             { "count": 2, "unit": "feuilles", "label": "de laurier" },
             { "count": 0.75, "unit": "L", "label": "de bouillon", "note": "Légumes, volaille ou agneau, au choix. Quantité à jauger" },
             { "count": 200, "unit": "g", "label": "de feta", "note": "À ajouter en fin de cuisson" }
@@ -118,7 +123,7 @@
         "Éplucher et couper les pommes de terre en 2 ou 3, couper le poivron en dés de quelques cm, détailler grossièrement les oignons et couper les tomates en morceaux.",
         "Saisir les médaillons à feu vif, 20 secondes de chaque côté, pour les colorer.",
         "Rebadigeonner les médaillons du mélange de jus de citron, d'huile d'olive et d'herbes en y rajoutant le miel.",
-        "Dans une cocotte, disposer l'agneau saisi avec les pommes de terre, les poivrons, les oignons, les tomates et les feuilles de laurier. Verser le bouillon.",
+        "Dans une cocotte, disposer l'agneau saisi avec les pommes de terre, les poivrons, les oignons et les tomates. Ajouter l'ail, le miel, le romarin, l'origan, le thym et les feuilles de laurier, puis verser le bouillon. Saler, poivrer.",
         "Cuire à couvert 3 heures à 140°C.",
         "10 à 15 minutes avant la fin, retirer le couvercle, ajouter la feta et laisser dorer.",
         "Servir bien chaud, arrosé du jus de cuisson."
