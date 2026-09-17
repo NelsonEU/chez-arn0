@@ -1,4 +1,3 @@
-import SiteHeader from '../components/SiteHeader.jsx';
 import RecipeCard from '../components/RecipeCard.jsx';
 import { useJsonData } from '../hooks/useJsonData.js';
 import { useDocumentTitle } from '../hooks/useDocumentTitle.js';
@@ -10,19 +9,16 @@ export default function RecipesPage() {
   const recipes = data?.recipes || [];
 
   return (
-    <>
-      <SiteHeader page="recipes" />
-      <div className="recipes-list">
-        {error && <p className="empty">Recettes introuvables.</p>}
-        {data && !recipes.length && <p className="empty">Aucune recette pour le moment.</p>}
-        {recipes.length > 0 && (
-          <div className="grid">
-            {recipes.map((r) => (
-              <RecipeCard recipe={r} key={r.slug} />
-            ))}
-          </div>
-        )}
-      </div>
-    </>
+    <div className="recipes-list">
+      {error && <p className="empty">Recettes introuvables.</p>}
+      {data && !recipes.length && <p className="empty">Aucune recette pour le moment.</p>}
+      {recipes.length > 0 && (
+        <div className="grid">
+          {recipes.map((r) => (
+            <RecipeCard recipe={r} key={r.slug} />
+          ))}
+        </div>
+      )}
+    </div>
   );
 }

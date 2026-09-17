@@ -47,17 +47,3 @@
   color: var(--accent);
   padding-left: 5px;
 }
-.menu-page footer {
-  margin-top: 34px;
-  padding-top: 18px;
-  border-top: 1px solid var(--border-soft-3);
-  display: flex;
-  justify-content: space-between;
-  gap: 16px;
-  flex-wrap: wrap;
-  font-family: var(--font-sans);
-  font-size: 11px;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: var(--text-muted);
-}

@@ -1,0 +1,15 @@
+.site-footer {
+  max-width: 1120px;
+  margin: 34px auto 0;
+  padding: 18px clamp(18px, 5vw, 28px) 32px;
+  border-top: 1px solid var(--border-soft-3);
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+  font-family: var(--font-sans);
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}

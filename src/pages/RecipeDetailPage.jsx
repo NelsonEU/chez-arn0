@@ -1,5 +1,4 @@
 import { Link, useParams } from 'react-router-dom';
-import SiteHeader from '../components/SiteHeader.jsx';
 import RecipeDetails from '../components/RecipeDetails.jsx';
 import { useJsonData } from '../hooks/useJsonData.js';
 import { useDocumentTitle } from '../hooks/useDocumentTitle.js';
@@ -14,15 +13,12 @@ export default function RecipeDetailPage() {
   useDocumentTitle(recipe ? `Chez Arnaud — ${recipe.title}` : 'Chez Arnaud — Recette');
 
   return (
-    <>
-      <SiteHeader page="recipes" />
-      <div className="recipe-detail">
-        <Link className="back" to="/">
-          ← Toutes les recettes
-        </Link>
-        {recipe && <RecipeDetails recipe={recipe} />}
-        {notFound && <p className="empty">Cette recette est introuvable.</p>}
-      </div>
-    </>
+    <div className="recipe-detail">
+      <Link className="back" to="/">
+        ← Toutes les recettes
+      </Link>
+      {recipe && <RecipeDetails recipe={recipe} />}
+      {notFound && <p className="empty">Cette recette est introuvable.</p>}
+    </div>
   );
 }
