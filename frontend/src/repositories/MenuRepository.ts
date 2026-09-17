@@ -22,10 +22,23 @@ function mapCategory(raw: RawMenuCategory): MenuCategory {
   return { name: raw.name, items: raw.items.map(mapItem) };
 }
 
+// Cached for the lifetime of the page session (cleared on a full reload)
+let cachedMenu: Promise<Menu> | null = null;
+
+async function fetchMenu(signal?: AbortSignal): Promise<Menu> {
+  const response = await fetch('/api/menu/', { signal });
+  const raw: RawMenu = await response.json();
+  return { categories: raw.categories.map(mapCategory) };
+}
+
 export const MenuRepository = {
-  async getMenu(signal?: AbortSignal): Promise<Menu> {
-    const response = await fetch('/api/menu/', { signal });
-    const raw: RawMenu = await response.json();
-    return { categories: raw.categories.map(mapCategory) };
+  getMenu(signal?: AbortSignal): Promise<Menu> {
+    if (!cachedMenu) {
+      cachedMenu = fetchMenu(signal).catch((error) => {
+        cachedMenu = null;
+        throw error;
+      });
+    }
+    return cachedMenu;
   },
 };
