@@ -25,7 +25,7 @@ jobs:
 
   deploy:
     needs: test
-    if: github.event_name == 'push' && github.ref == 'refs/heads/admin'
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     steps:
       - name: Deploy over SSH
@@ -34,7 +34,4 @@ jobs:
           host: ${{ secrets.VPS_HOST }}
           username: ${{ secrets.VPS_USER }}
           key: ${{ secrets.VPS_DEPLOY_KEY }}
-          # The deploy key's authorized_keys entry is restricted to this
-          # exact forced command (see the deploy runbook) — this line is a
-          # convenience for local reading, not what actually limits access.
           script: cd ~/apps/chez-arn0 && git pull && docker compose -f docker-compose.prod.yml up -d --build

@@ -60,11 +60,27 @@ function mapDetail(raw: RawRecipeDetail): RecipeDetail {
   };
 }
 
+// Cached for the lifetime of the page session (cleared on a full reload,
+// same as any other in-memory state) — avoids re-fetching the list on every
+// getBySlug() call. No TTL: this is a personal site with infrequent admin
+// edits, not worth the complexity of a staleness window.
+let cachedList: Promise<RecipeSummary[]> | null = null;
+
+async function fetchList(signal?: AbortSignal): Promise<RecipeSummary[]> {
+  const response = await fetch('/api/recipes/', { signal });
+  const raw: RawRecipeList = await response.json();
+  return raw.recipes.map(mapSummary);
+}
+
 export const RecipeRepository = {
-  async list(signal?: AbortSignal): Promise<RecipeSummary[]> {
-    const response = await fetch('/api/recipes/', { signal });
-    const raw: RawRecipeList = await response.json();
-    return raw.recipes.map(mapSummary);
+  list(signal?: AbortSignal): Promise<RecipeSummary[]> {
+    if (!cachedList) {
+      cachedList = fetchList(signal).catch((error) => {
+        cachedList = null;
+        throw error;
+      });
+    }
+    return cachedList;
   },
 
   async getBySlug(slug: string, signal?: AbortSignal): Promise<RecipeDetail> {
