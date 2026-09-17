@@ -60,13 +60,20 @@ function mapDetail(raw: RawRecipeDetail): RecipeDetail {
   };
 }
 
-// Cached for the lifetime of the page session
+// Both cached for the lifetime of the page session
 let cachedList: Promise<RecipeSummary[]> | null = null;
+const cachedDetails = new Map<string, Promise<RecipeDetail>>();
 
 async function fetchList(signal?: AbortSignal): Promise<RecipeSummary[]> {
   const response = await fetch('/api/recipes/', { signal });
   const raw: RawRecipeList = await response.json();
   return raw.recipes.map(mapSummary);
+}
+
+async function fetchDetail(id: number, signal?: AbortSignal): Promise<RecipeDetail> {
+  const response = await fetch(`/api/recipes/${id}/`, { signal });
+  const raw: RawRecipeDetail = await response.json();
+  return mapDetail(raw);
 }
 
 export const RecipeRepository = {
@@ -80,16 +87,22 @@ export const RecipeRepository = {
     return cachedList;
   },
 
-  async getBySlug(slug: string, signal?: AbortSignal): Promise<RecipeDetail> {
-    // The API looks recipes up by id, not slug — slug is only used in the
-    // frontend URL — so resolve slug -> id from the list first.
-    const summaries = await RecipeRepository.list(signal);
-    const match = summaries.find((r) => r.slug === slug);
-    if (!match) {
-      throw new Error(`Recipe not found: ${slug}`);
+  getBySlug(slug: string, signal?: AbortSignal): Promise<RecipeDetail> {
+    if (!cachedDetails.has(slug)) {
+      const promise = RecipeRepository.list(signal)
+        .then((summaries) => {
+          const match = summaries.find((r) => r.slug === slug);
+          if (!match) {
+            throw new Error(`Recipe not found: ${slug}`);
+          }
+          return fetchDetail(match.id, signal);
+        })
+        .catch((error) => {
+          cachedDetails.delete(slug);
+          throw error;
+        });
+      cachedDetails.set(slug, promise);
     }
-    const response = await fetch(`/api/recipes/${match.id}/`, { signal });
-    const raw: RawRecipeDetail = await response.json();
-    return mapDetail(raw);
+    return cachedDetails.get(slug)!;
   },
 };
