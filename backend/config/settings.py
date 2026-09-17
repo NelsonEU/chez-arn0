@@ -102,6 +102,15 @@ STORAGES = {
     "default": {"BACKEND": "django.core.files.storage.FileSystemStorage"},
     "staticfiles": {"BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage"},
 }
+# Vite's public/ directory (icons, etc. — anything not under assets/) gets
+# copied verbatim into frontend_dist/ at build time, but nothing was serving
+# it: it doesn't match STATIC_URL ("/assets/") and isn't api/admin/media/
+# assets, so it fell through to the SPA catch-all route in urls.py and
+# returned index.html instead of the actual file. WHITENOISE_ROOT serves a
+# directory's contents at the site root as middleware, before Django's URL
+# routing (and this catch-all) ever runs.
+if FRONTEND_DIST.is_dir():
+    WHITENOISE_ROOT = FRONTEND_DIST
 MEDIA_URL = "media/"
 MEDIA_ROOT = BASE_DIR / "media"
 
