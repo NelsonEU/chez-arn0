@@ -3,7 +3,6 @@ name: CI/CD
 on:
   push:
     branches: [admin] # switch to main once admin is merged
-  pull_request:
 
 jobs:
   test:
