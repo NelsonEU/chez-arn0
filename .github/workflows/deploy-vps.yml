@@ -2,7 +2,7 @@ name: Deploy to VPS
 
 on:
   push:
-    branches: [main]
+    branches: [admin] # switch to main once admin is merged
   workflow_dispatch:
 
 jobs:
@@ -18,4 +18,4 @@ jobs:
           # The deploy key's authorized_keys entry is restricted to this
           # exact forced command (see the deploy runbook) — this line is a
           # convenience for local reading, not what actually limits access.
-          script: cd ~/chez-arn0 && git pull && docker compose -f docker-compose.prod.yml up -d --build
+          script: cd ~/apps/chez-arn0 && git pull && docker compose -f docker-compose.prod.yml up -d --build
