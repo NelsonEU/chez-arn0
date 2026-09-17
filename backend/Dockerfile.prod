@@ -1,0 +1,25 @@
+# Build context is the repo root (not backend/) — this stage needs both
+# frontend/ and backend/. See docker-compose.prod.yml.
+
+FROM node:20-slim AS frontend-build
+WORKDIR /frontend
+COPY frontend/package.json frontend/package-lock.json ./
+RUN npm ci
+COPY frontend/ .
+RUN npm run build
+
+FROM python:3.12-slim
+WORKDIR /app
+
+COPY backend/requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+
+COPY backend/ .
+COPY --from=frontend-build /frontend/dist /app/frontend_dist
+
+EXPOSE 8000
+
+# Chained at container start, not image build, so it doesn't need
+# ADMIN_PASSWORD/DATABASE_URL available as build secrets — those come from
+# the real environment when the container actually runs.
+CMD ["sh", "-c", "python manage.py migrate --noinput && python manage.py collectstatic --noinput && gunicorn config.wsgi:application --bind 0.0.0.0:8000"]

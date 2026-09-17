@@ -5,6 +5,11 @@ import dj_database_url
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+# Only present in the production image (backend/Dockerfile.prod copies the
+# built frontend here) — absent in dev, where Vite's own dev server handles
+# the frontend and Django never receives HTML-page requests directly.
+FRONTEND_DIST = BASE_DIR / "frontend_dist"
+
 SECRET_KEY = os.environ.get("SECRET_KEY", "dev-only-insecure-secret-key")
 DEBUG = os.environ.get("DEBUG", "true").lower() == "true"
 ALLOWED_HOSTS = [h for h in os.environ.get("ALLOWED_HOSTS", "*").split(",") if h]
@@ -14,6 +19,17 @@ CSRF_TRUSTED_ORIGINS = [
 ]
 
 ADMIN_PASSWORD = os.environ["ADMIN_PASSWORD"]
+
+# The dev-friendly defaults above (insecure secret key, wildcard host) are
+# fine for local Docker Compose, but would be a real hole if the production
+# .env ever forgot to set them. Fail loudly instead of running insecurely.
+if not DEBUG:
+    from django.core.exceptions import ImproperlyConfigured
+
+    if SECRET_KEY == "dev-only-insecure-secret-key":
+        raise ImproperlyConfigured("SECRET_KEY must be set explicitly when DEBUG=False")
+    if ALLOWED_HOSTS == ["*"]:
+        raise ImproperlyConfigured("ALLOWED_HOSTS must be set explicitly when DEBUG=False")
 
 INSTALLED_APPS = [
     "django.contrib.admin",
@@ -28,6 +44,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
+    "whitenoise.middleware.WhiteNoiseMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
@@ -41,7 +58,7 @@ ROOT_URLCONF = "config.urls"
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [],
+        "DIRS": [FRONTEND_DIST],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
@@ -75,7 +92,16 @@ TIME_ZONE = "Europe/Zurich"
 USE_I18N = True
 USE_TZ = True
 
-STATIC_URL = "static/"
+STATIC_URL = "/assets/"
+# Matches Vite's default build output, which already references /assets/...
+# from the site root — no vite.config.ts changes needed. Only present in
+# production, hence the existence check (see FRONTEND_DIST above).
+STATICFILES_DIRS = [FRONTEND_DIST / "assets"] if (FRONTEND_DIST / "assets").is_dir() else []
+STATIC_ROOT = BASE_DIR / "staticfiles"
+STORAGES = {
+    "default": {"BACKEND": "django.core.files.storage.FileSystemStorage"},
+    "staticfiles": {"BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage"},
+}
 MEDIA_URL = "media/"
 MEDIA_ROOT = BASE_DIR / "media"
 
