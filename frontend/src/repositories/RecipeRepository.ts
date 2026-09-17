@@ -60,10 +60,7 @@ function mapDetail(raw: RawRecipeDetail): RecipeDetail {
   };
 }
 
-// Cached for the lifetime of the page session (cleared on a full reload,
-// same as any other in-memory state) — avoids re-fetching the list on every
-// getBySlug() call. No TTL: this is a personal site with infrequent admin
-// edits, not worth the complexity of a staleness window.
+// Cached for the lifetime of the page session
 let cachedList: Promise<RecipeSummary[]> | null = null;
 
 async function fetchList(signal?: AbortSignal): Promise<RecipeSummary[]> {
