@@ -1,0 +1,433 @@
+.admin-page {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: clamp(28px, 6vw, 44px) clamp(18px, 5vw, 28px) 72px;
+  font-family: var(--font-sans);
+}
+.admin-topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 28px;
+}
+.admin-page h1 {
+  font-family: var(--font-serif-display);
+  font-size: 32px;
+  color: var(--text-strong);
+  margin: 0 0 24px;
+}
+.admin-topbar h1 {
+  margin: 0;
+}
+.topbar-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.admin-page h2 {
+  font-family: var(--font-serif-display);
+  font-size: 22px;
+  color: var(--text-strong);
+  margin: 0;
+}
+.admin-page a {
+  color: var(--accent);
+}
+.admin-page nav {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 28px;
+  font-size: 13px;
+}
+.admin-page form {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 0;
+  flex-wrap: wrap;
+  align-items: center;
+}
+.admin-page input,
+.admin-page select,
+.admin-page textarea {
+  background: var(--bg);
+  border: 1px solid var(--border-soft);
+  color: var(--text);
+  padding: 11px 14px;
+  border-radius: 6px;
+  font-family: inherit;
+  font-size: 15px;
+  box-sizing: border-box;
+}
+.admin-page textarea {
+  width: 100%;
+  min-height: 60px;
+}
+.admin-page select {
+  appearance: none;
+  -webkit-appearance: none;
+  padding-right: 34px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%239EAABB' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+  background-size: 14px;
+}
+.admin-page button {
+  background: var(--accent);
+  color: var(--bg);
+  border: none;
+  padding: 11px 18px;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+}
+.admin-page button.secondary,
+.admin-page a.secondary {
+  display: inline-flex;
+  align-items: center;
+  background: transparent;
+  border: 1px solid var(--border-soft-3);
+  color: var(--text-muted);
+  font-weight: 500;
+  text-decoration: none;
+}
+.admin-page a.secondary {
+  padding: 11px 18px;
+  border-radius: 6px;
+  font-size: 14px;
+}
+.admin-page button.danger {
+  background: transparent;
+  border: 1px solid rgba(220, 100, 100, 0.4);
+  color: #e08080;
+  font-weight: 500;
+}
+
+/* Scoped under .admin-page (2 classes) so these reliably out-specify the
+   generic `.admin-page button` / `.admin-page button.danger` rules above
+   (1 class + element, 2 classes + element) — otherwise those win the
+   cascade and icon buttons render with the wrong padding/background,
+   squeezing the icon out to nothing. */
+.admin-page .icon-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  padding: 0;
+  flex-shrink: 0;
+  background: transparent;
+  border: 1px solid var(--border-soft-3);
+  border-radius: 6px;
+  color: var(--text-muted);
+  cursor: pointer;
+}
+.admin-page .icon-btn:hover {
+  color: var(--text-strong);
+  border-color: var(--border-soft-3);
+}
+.admin-page .icon-btn.danger {
+  background: transparent;
+  border-color: rgba(220, 100, 100, 0.35);
+  color: #e08080;
+}
+.admin-page .icon-btn.danger:hover {
+  background: rgba(220, 100, 100, 0.12);
+  color: #e89a9a;
+}
+.icon-btn svg {
+  width: 16px;
+  height: 16px;
+}
+
+.admin-page .field-row {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 18px;
+}
+.admin-page .field-row:last-child {
+  margin-bottom: 0;
+}
+.admin-page .field-row label {
+  font-size: 12px;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.admin-login-page {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  padding: 24px;
+  font-family: var(--font-sans);
+}
+.admin-login-page h1 {
+  font-family: var(--font-serif-display);
+  font-size: 32px;
+  color: var(--text-strong);
+  margin: 0;
+}
+.admin-login-page .login-form {
+  width: 100%;
+  max-width: 360px;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 12px;
+}
+.admin-login-page .login-form input {
+  padding: 14px 16px;
+  font-size: 16px;
+  border-radius: 6px;
+}
+.admin-login-page .login-form button {
+  padding: 14px 16px;
+  font-size: 16px;
+  border-radius: 6px;
+  font-weight: 600;
+}
+
+.error {
+  color: #e08080;
+  font-size: 13px;
+  margin: 0;
+}
+
+.admin-page table {
+  width: 100%;
+  border-collapse: collapse;
+}
+.admin-page th,
+.admin-page td {
+  text-align: left;
+  padding: 10px 8px;
+  border-bottom: 1px solid var(--border-soft-2);
+  font-size: 14px;
+}
+.admin-page .thumb {
+  width: 48px;
+  height: 36px;
+  object-fit: cover;
+  border-radius: 4px;
+  background: var(--bg);
+  display: block;
+}
+.admin-page .photo-preview {
+  width: 240px;
+  max-width: 100%;
+  height: 180px;
+  object-fit: cover;
+  border-radius: 8px;
+  background: var(--bg);
+  display: block;
+  margin-bottom: 10px;
+}
+
+/* Card-style top-level sections (Recettes, Menu, recipe-edit groups) */
+.admin-section {
+  background: var(--bg-panel);
+  border: 1px solid var(--border-soft-2);
+  border-radius: 12px;
+  padding: 24px clamp(18px, 4vw, 28px);
+  margin-bottom: 28px;
+}
+.admin-section-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 18px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid var(--border-soft-2);
+}
+.admin-section-head h2 {
+  margin: 0;
+}
+.admin-section table {
+  margin-bottom: 20px;
+}
+.admin-section > form:last-child,
+.admin-section > h3 + form {
+  margin-top: 4px;
+}
+.admin-section h3 {
+  font-size: 13px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin: 0 0 10px;
+}
+
+.sortable-list {
+  list-style: none;
+  margin: 0 0 16px;
+  padding: 0;
+}
+.sortable-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--border-soft-2);
+}
+.drag-handle {
+  cursor: grab;
+  color: var(--text-muted);
+  touch-action: none;
+  user-select: none;
+  flex-shrink: 0;
+  margin-top: 8px;
+}
+
+.admin-page .item-row {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+.admin-page .item-row input {
+  flex: 1;
+  min-width: 120px;
+}
+.admin-page .item-row textarea {
+  flex: 1;
+  width: auto;
+  min-height: 44px;
+}
+.admin-page .item-row .recipe-select {
+  flex: none;
+  width: 170px;
+}
+
+.admin-page .recipe-row {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+.admin-page .recipe-row-title {
+  flex: 1;
+  min-width: 0;
+}
+
+/* Shared header row for CategoryBlock / IngredientGroupBlock */
+.block {
+  flex: 1;
+}
+.block:not(:last-child) {
+  margin-bottom: 8px;
+}
+.block-head {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.block-head .chevron-btn {
+  background: transparent;
+  border: none;
+  color: var(--text-muted);
+  cursor: pointer;
+  padding: 4px;
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+}
+.block-head .chevron-btn svg {
+  width: 14px;
+  height: 14px;
+}
+.block-head .name-input {
+  flex: 1;
+  background: transparent;
+  border: 1px solid transparent;
+  color: var(--text-strong);
+  font-size: 16px;
+  font-weight: 600;
+  padding: 6px 8px;
+  border-radius: 5px;
+}
+.block-head .name-input:hover {
+  border-color: var(--border-soft);
+}
+.block-head .name-input:focus {
+  background: var(--bg);
+  border-color: var(--border-soft-3);
+  outline: none;
+}
+.block-head .item-count {
+  font-size: 12px;
+  color: var(--text-muted);
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+.block-body {
+  padding: 14px 0 4px 32px;
+}
+
+.status-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  padding: 4px 10px;
+  border-radius: 999px;
+  white-space: nowrap;
+}
+.status-badge.published {
+  color: #8fd4a8;
+  background: rgba(143, 212, 168, 0.12);
+}
+.status-badge.draft {
+  color: var(--text-muted);
+  background: rgba(232, 240, 250, 0.08);
+}
+
+.admin-page .row-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  white-space: nowrap;
+}
+.admin-page .row-actions button:not(.icon-btn) {
+  padding: 8px 14px;
+  font-size: 13px;
+}
+
+.confirm-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(10, 15, 24, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  z-index: 100;
+}
+.confirm-dialog {
+  background: var(--bg-panel);
+  border: 1px solid var(--border-soft-3);
+  border-radius: 12px;
+  padding: 24px;
+  max-width: 360px;
+  width: 100%;
+}
+.confirm-dialog p {
+  margin: 0 0 20px;
+  color: var(--text);
+  font-size: 15px;
+}
+.confirm-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
