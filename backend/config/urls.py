@@ -1,8 +1,8 @@
 from django.conf import settings
-from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import include, path, re_path
 from django.views.generic import TemplateView
+from django.views.static import serve
 
 urlpatterns = [
     path("admin/", admin.site.urls),
@@ -12,7 +12,13 @@ urlpatterns = [
 # Media (user-uploaded recipe images) isn't tied to DEBUG — Django serves it
 # directly in production too. Fine at this project's scale; no Nginx/S3
 # involved, matching the "Django serves everything" deployment shape.
-urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+# Wired directly to the `serve` view rather than the `static()` helper:
+# that helper has its own internal `if not settings.DEBUG: return []` check
+# baked into Django itself, which silently no-ops it in production no
+# matter how it's called from here.
+urlpatterns += [
+    re_path(r"^media/(?P<path>.*)$", serve, {"document_root": settings.MEDIA_ROOT}),
+]
 
 # Catch-all: anything that isn't api/admin/media/assets is a client-side
 # React Router route — served the built SPA's index.html so a hard refresh
