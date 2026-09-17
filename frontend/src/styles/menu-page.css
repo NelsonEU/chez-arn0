@@ -48,8 +48,7 @@
   padding-left: 5px;
 }
 .menu-page .item .recipe-link-icon {
-  width: 14px;
-  height: 14px;
   margin-left: auto;
   flex-shrink: 0;
+  color: var(--accent);
 }

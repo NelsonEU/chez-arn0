@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+import { ChefHat } from 'lucide-react';
 import type { MenuCategory as MenuCategoryModel } from '../models/Menu.ts';
 
 export default function MenuCategory({ category }: { category: MenuCategoryModel }) {
@@ -11,7 +12,7 @@ export default function MenuCategory({ category }: { category: MenuCategoryModel
         item.recipeSlug ? (
           <Link className="item" to={`/recettes/${item.recipeSlug}`} key={item.label}>
             {item.label}
-            <img className="recipe-link-icon" src="/images/recipe-link-icon.svg" alt="" />
+            <ChefHat className="recipe-link-icon" size={14} />
           </Link>
         ) : (
           <div className="item" key={item.label}>
