@@ -114,7 +114,6 @@ export default function ExtractPanel({ recipeId, onExtracted }: ExtractPanelProp
                   ref={fileInputRef}
                   type="file"
                   accept="image/*"
-                  capture="environment"
                   disabled={loading}
                   onChange={handleImageChange}
                   className="file-input-hidden"
