@@ -5,7 +5,14 @@ from django.views.generic import TemplateView
 from django.views.static import serve
 
 urlpatterns = [
-    path("admin/", admin.site.urls),
+    # Django's own built-in admin — deliberately NOT at "admin/", which is
+    # the React app's admin route. They collided in production: Django
+    # serves everything there (unlike dev, where Vite owns non-api/media
+    # paths), and this pattern being registered first meant a full page
+    # load of /admin (not client-side nav) hit Django's admin instead of
+    # the SPA. This is a rarely-used dev/DB-inspection fallback, not the
+    # real admin UI, so it moves — the React app keeps "admin/" outright.
+    path("django-admin/", admin.site.urls),
     path("api/", include("content.urls")),
 ]
 
@@ -20,11 +27,12 @@ urlpatterns += [
     re_path(r"^media/(?P<path>.*)$", serve, {"document_root": settings.MEDIA_ROOT}),
 ]
 
-# Catch-all: anything that isn't api/admin/media/assets is a client-side
-# React Router route — served the built SPA's index.html so a hard refresh
-# on e.g. /recettes/vol-au-vent works, not just client-side navigation.
+# Catch-all: anything that isn't api/django-admin/media/assets is a
+# client-side React Router route (including the React app's own /admin/*)
+# — served the built SPA's index.html so a hard refresh on e.g.
+# /recettes/vol-au-vent or /admin works, not just client-side navigation.
 # Only reachable in production (frontend_dist only exists there — see
 # FRONTEND_DIST in settings.py); in dev, Vite's own server handles this.
 urlpatterns += [
-    re_path(r"^(?!api/|admin/|media/|assets/).*$", TemplateView.as_view(template_name="index.html")),
+    re_path(r"^(?!api/|django-admin/|media/|assets/).*$", TemplateView.as_view(template_name="index.html")),
 ]
