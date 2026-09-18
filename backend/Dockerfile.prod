@@ -19,10 +19,6 @@ COPY --from=frontend-build /frontend/dist /app/frontend_dist
 
 EXPOSE 8000
 
-# Chained at container start, not image build, so it doesn't need
-# ADMIN_PASSWORD/DATABASE_URL available as build secrets — those come from
-# the real environment when the container actually runs. Same reasoning
-# for the port: $PORT is a real runtime env var (set by docker-compose.prod.yml
-# from WEB_PORT), not something baked in at build time — the :-8000 fallback
-# just keeps `docker run` usable standalone if PORT isn't set.
+# Chained at container start, not build, so secrets/PORT come from the
+# real runtime environment, not baked into the image.
 CMD ["sh", "-c", "python manage.py migrate --noinput && python manage.py collectstatic --noinput && gunicorn config.wsgi:application --bind 0.0.0.0:${PORT:-8000}"]
