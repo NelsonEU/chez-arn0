@@ -20,6 +20,9 @@ CSRF_TRUSTED_ORIGINS = [
 
 ADMIN_PASSWORD = os.environ["ADMIN_PASSWORD"]
 
+# Optional: a missing key disables the AI-assisted recipe entry feature
+GEMINI_API_KEY = os.environ.get("GEMINI_API_KEY", "")
+
 # The dev-friendly defaults above (insecure secret key, wildcard host) are
 # fine for local Docker Compose, but would be a real hole if the production
 # .env ever forgot to set them. Fail loudly instead of running insecurely.

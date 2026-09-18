@@ -1,10 +1,17 @@
 import { useEffect, useState, type ChangeEvent, type FormEvent } from 'react';
 import { Link, useParams } from 'react-router-dom';
+import ExtractPanel from '../../components/admin/ExtractPanel.tsx';
 import IngredientGroupBlock from '../../components/admin/IngredientGroupBlock.tsx';
 import StepRow from '../../components/admin/StepRow.tsx';
 import SortableList from '../../components/SortableList.tsx';
 import { useAsync } from '../../hooks/useAsync.ts';
-import type { AdminIngredient, AdminIngredientGroup, AdminRecipe, AdminRecipeStep } from '../../models/Admin.ts';
+import type {
+  AdminIngredient,
+  AdminIngredientGroup,
+  AdminRecipe,
+  AdminRecipeStep,
+  ExtractedRecipe,
+} from '../../models/Admin.ts';
 import { AdminRepository } from '../../repositories/AdminRepository.ts';
 import '../../styles/admin.css';
 
@@ -160,6 +167,44 @@ export default function AdminRecipeEditPage() {
     await AdminRepository.steps.reorder(ids, recipeId);
   }
 
+  async function applyExtraction(extracted: ExtractedRecipe) {
+    const form = new FormData();
+    form.append('description', extracted.description);
+    form.append('servings', extracted.servings);
+    if (extracted.note) form.append('note', extracted.note);
+    const updatedRecipe = await AdminRepository.recipes.update(recipeId, form);
+    setRecipe(updatedRecipe);
+    setDescription(updatedRecipe.description);
+    setServings(updatedRecipe.servings);
+    setNote(updatedRecipe.note);
+
+    const newGroups: AdminIngredientGroup[] = [];
+    const newIngredients: AdminIngredient[] = [];
+    for (const group of extracted.ingredient_groups) {
+      const createdGroup = await AdminRepository.ingredientGroups.create({ recipe: recipeId, name: group.name });
+      newGroups.push(createdGroup);
+      for (const ingredient of group.ingredients) {
+        const createdIngredient = await AdminRepository.ingredients.create({
+          group: createdGroup.id,
+          count: ingredient.count,
+          unit: ingredient.unit,
+          prefix: ingredient.prefix,
+          label: ingredient.label,
+          note: ingredient.note ?? '',
+        });
+        newIngredients.push(createdIngredient);
+      }
+    }
+    setGroups((prev) => [...(prev ?? []), ...newGroups]);
+    setIngredients((prev) => [...(prev ?? []), ...newIngredients]);
+
+    const newSteps: AdminRecipeStep[] = [];
+    for (const text of extracted.steps) {
+      newSteps.push(await AdminRepository.steps.create({ recipe: recipeId, text }));
+    }
+    setSteps((prev) => [...(prev ?? []), ...newSteps]);
+  }
+
   return (
     <div className="admin-page">
       <div className="admin-topbar">
@@ -239,6 +284,8 @@ export default function AdminRecipeEditPage() {
           <button type="submit">Ajouter</button>
         </form>
       </section>
+
+      <ExtractPanel recipeId={recipeId} onExtracted={applyExtraction} />
     </div>
   );
 }

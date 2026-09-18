@@ -48,3 +48,24 @@ export interface AdminRecipeStep {
   text: string;
   order: number;
 }
+
+export interface ExtractedIngredient {
+  prefix: string;
+  count: number | null;
+  unit: string;
+  label: string;
+  note?: string;
+}
+
+export interface ExtractedIngredientGroup {
+  name: string;
+  ingredients: ExtractedIngredient[];
+}
+
+export interface ExtractedRecipe {
+  description: string;
+  servings: string;
+  note?: string;
+  ingredient_groups: ExtractedIngredientGroup[];
+  steps: string[];
+}

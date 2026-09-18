@@ -31,6 +31,7 @@ services:
       CSRF_TRUSTED_ORIGINS: ${CSRF_TRUSTED_ORIGINS}
       DATABASE_URL: postgres://${DB_USER}:${DB_PASSWORD}@db:${DB_PORT}/${DB_NAME}
       DEBUG: ${DEBUG}
+      GEMINI_API_KEY: ${GEMINI_API_KEY}
       PORT: ${PORT}
       SECRET_KEY: ${SECRET_KEY}
     volumes:

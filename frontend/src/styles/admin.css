@@ -82,6 +82,10 @@
   font-weight: 600;
   cursor: pointer;
 }
+.admin-page button:disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
 .admin-page button.secondary,
 .admin-page a.secondary {
   display: inline-flex;
@@ -400,6 +404,58 @@
 }
 .admin-page .row-actions button:not(.icon-btn) {
   padding: 8px 14px;
+  font-size: 13px;
+}
+
+@keyframes extract-pop-in {
+  from {
+    opacity: 0;
+    transform: scale(0.92) translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+.admin-page .extract-fab {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  border-radius: 999px;
+  padding: 12px 20px;
+  z-index: 50;
+  animation: extract-pop-in 0.18s ease-out;
+}
+.extract-panel {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  width: 360px;
+  max-width: calc(100vw - 48px);
+  background: var(--bg-panel);
+  border: 1px solid var(--border-soft-3);
+  border-radius: 12px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  z-index: 50;
+  transform-origin: bottom right;
+  animation: extract-pop-in 0.18s ease-out;
+}
+.extract-panel-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-weight: 600;
+  color: var(--text-strong);
+}
+.extract-error {
+  margin: 0;
+  color: #e08080;
   font-size: 13px;
 }
 

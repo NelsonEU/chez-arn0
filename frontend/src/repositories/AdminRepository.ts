@@ -5,6 +5,7 @@ import type {
   AdminMenuItem,
   AdminRecipe,
   AdminRecipeStep,
+  ExtractedRecipe,
 } from '../models/Admin.ts';
 import { getCsrfToken } from './csrf.ts';
 
@@ -93,6 +94,13 @@ export const AdminRepository = {
     },
     publish(id: number, signal?: AbortSignal): Promise<AdminRecipe> {
       return adminFetch<AdminRecipe>(`/api/admin/recipes/${id}/publish/`, { method: 'POST', signal });
+    },
+    extract(id: number, text: string, signal?: AbortSignal): Promise<ExtractedRecipe> {
+      return adminFetch<ExtractedRecipe>(`/api/admin/recipes/${id}/extract/`, {
+        method: 'POST',
+        body: JSON.stringify({ text }),
+        signal,
+      });
     },
     reorder(ids: number[], signal?: AbortSignal): Promise<void> {
       return adminFetch<void>('/api/admin/recipes/reorder/', { method: 'POST', body: JSON.stringify({ ids }), signal });

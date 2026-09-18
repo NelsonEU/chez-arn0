@@ -12,6 +12,7 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 
 from .models import Category, Ingredient, IngredientGroup, MenuItem, Recipe, RecipeStep
+from .recipe_extraction import ExtractionError, extract_recipe
 from .serializers import (
     AdminCategorySerializer,
     AdminIngredientGroupSerializer,
@@ -165,6 +166,18 @@ class AdminRecipeViewSet(OrderedViewSetMixin, viewsets.ModelViewSet):
             recipe.published_at = timezone.now()
             recipe.save(update_fields=["published_at"])
         return Response(self.get_serializer(recipe).data)
+
+    @action(detail=True, methods=["post"])
+    def extract(self, request, pk=None):
+        recipe = self.get_object()
+        text = str(request.data.get("text", "")).strip()
+        if not text:
+            return Response({"detail": "Aucun texte fourni."}, status=400)
+        try:
+            extracted = extract_recipe(text, recipe.title)
+        except ExtractionError as e:
+            return Response({"detail": str(e)}, status=502)
+        return Response(extracted)
 
 
 class AdminIngredientGroupViewSet(OrderedViewSetMixin, viewsets.ModelViewSet):

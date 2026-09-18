@@ -22,6 +22,7 @@ services:
       ADMIN_PASSWORD: ${ADMIN_PASSWORD}
       CSRF_TRUSTED_ORIGINS: ${CSRF_TRUSTED_ORIGINS}
       DATABASE_URL: postgres://${DB_USER}:${DB_PASSWORD}@db:${DB_PORT}/${DB_NAME}
+      GEMINI_API_KEY: ${GEMINI_API_KEY}
 
   frontend:
     build: ./frontend
