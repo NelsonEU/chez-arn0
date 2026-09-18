@@ -41,25 +41,25 @@ export default function IngredientRow({ ingredient, onUpdate, onDelete }: Ingred
   return (
     <div className="item-row">
       <input
+        className="qty-input"
         value={prefix}
         onChange={(e) => setPrefix(e.target.value)}
         onBlur={saveIfChanged}
         placeholder="Préfixe"
-        style={{ width: 70 }}
       />
       <input
+        className="qty-input"
         value={count}
         onChange={(e) => setCount(e.target.value)}
         onBlur={saveIfChanged}
         placeholder="Qté"
-        style={{ width: 60 }}
       />
       <input
+        className="qty-input"
         value={unit}
         onChange={(e) => setUnit(e.target.value)}
         onBlur={saveIfChanged}
         placeholder="Unité"
-        style={{ width: 70 }}
       />
       <input value={label} onChange={(e) => setLabel(e.target.value)} onBlur={saveIfChanged} placeholder="Libellé" />
       <input

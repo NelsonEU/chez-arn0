@@ -8,17 +8,20 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 16px;
+  flex-wrap: wrap;
+  gap: 12px 16px;
   margin-bottom: 28px;
 }
 .admin-page h1 {
   font-family: var(--font-serif-display);
-  font-size: 32px;
+  font-size: clamp(24px, 6vw, 32px);
   color: var(--text-strong);
   margin: 0 0 24px;
 }
 .admin-topbar h1 {
   margin: 0;
+  min-width: 0;
+  overflow-wrap: break-word;
 }
 .topbar-actions {
   display: flex;
@@ -46,6 +49,10 @@
   margin-bottom: 0;
   flex-wrap: wrap;
   align-items: center;
+}
+.admin-page form input {
+  flex: 1;
+  min-width: 140px;
 }
 .admin-page input,
 .admin-page select,
@@ -90,6 +97,7 @@
 .admin-page a.secondary {
   display: inline-flex;
   align-items: center;
+  gap: 8px;
   background: transparent;
   border: 1px solid var(--border-soft-3);
   color: var(--text-muted);
@@ -159,6 +167,9 @@
   color: var(--text-muted);
   text-transform: uppercase;
   letter-spacing: 0.06em;
+}
+.admin-page .field-row input {
+  width: 100%;
 }
 
 .admin-login-page {
@@ -291,6 +302,7 @@
 
 .admin-page .item-row {
   flex: 1;
+  min-width: 0;
   display: flex;
   align-items: center;
   gap: 10px;
@@ -305,25 +317,47 @@
   width: auto;
   min-height: 44px;
 }
-.admin-page .item-row .recipe-select {
+.admin-page .item-row-secondary {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+}
+.admin-page .item-row-secondary .recipe-select {
   flex: none;
   width: 170px;
+}
+@media (max-width: 640px) {
+  .admin-page .item-row-secondary {
+    flex: 1 1 100%;
+  }
+  .admin-page .item-row-secondary .recipe-select {
+    flex: 1;
+    width: auto;
+  }
+}
+.admin-page .item-row .qty-input {
+  flex: 0 1 70px;
+  min-width: 56px;
 }
 
 .admin-page .recipe-row {
   flex: 1;
   display: flex;
   align-items: center;
-  gap: 14px;
+  gap: 10px 14px;
+  flex-wrap: wrap;
 }
 .admin-page .recipe-row-title {
-  flex: 1;
+  flex: 1 1 140px;
   min-width: 0;
+  overflow-wrap: break-word;
 }
 
 /* Shared header row for CategoryBlock / IngredientGroupBlock */
 .block {
   flex: 1;
+  min-width: 0;
 }
 .block:not(:last-child) {
   margin-bottom: 8px;
@@ -352,6 +386,7 @@
 }
 .block-head .name-input {
   flex: 1;
+  min-width: 0;
   background: transparent;
   border: 1px solid transparent;
   color: var(--text-strong);
@@ -429,34 +464,98 @@
   z-index: 50;
   animation: extract-pop-in 0.18s ease-out;
 }
-.extract-panel {
+.extract-overlay {
   position: fixed;
-  bottom: 24px;
-  right: 24px;
-  width: 360px;
+  inset: 0;
+  background: rgba(10, 15, 24, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  z-index: 100;
+}
+.extract-dialog {
+  width: 720px;
   max-width: calc(100vw - 48px);
+  max-height: calc(100vh - 48px);
+  overflow-y: auto;
   background: var(--bg-panel);
   border: 1px solid var(--border-soft-3);
   border-radius: 12px;
-  padding: 20px;
+  padding: 28px;
   display: flex;
   flex-direction: column;
-  gap: 10px;
-  z-index: 50;
-  transform-origin: bottom right;
+  gap: 14px;
   animation: extract-pop-in 0.18s ease-out;
 }
-.extract-panel-head {
+.extract-dialog-head {
   display: flex;
   align-items: center;
   justify-content: space-between;
   font-weight: 600;
   color: var(--text-strong);
 }
+.extract-dialog textarea {
+  min-height: 260px;
+}
+.extract-mode-toggle {
+  display: inline-flex;
+  gap: 4px;
+  padding: 4px;
+  border: 1px solid var(--border-soft-3);
+  border-radius: 8px;
+  align-self: flex-start;
+}
+.extract-mode-toggle button {
+  background: transparent;
+  color: var(--text-muted);
+  padding: 7px 16px;
+  border-radius: 5px;
+}
+.extract-mode-toggle button.active {
+  background: var(--accent);
+  color: var(--bg);
+}
+.extract-photo-picker {
+  min-height: 260px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px dashed var(--border-soft-3);
+  border-radius: 8px;
+}
+.file-input-hidden {
+  display: none;
+}
+.extract-photo-preview {
+  position: relative;
+  width: 100%;
+  height: 260px;
+}
+.extract-photo-preview img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  border-radius: 6px;
+}
+.extract-photo-preview .icon-btn {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  background: var(--bg-panel);
+}
 .extract-error {
   margin: 0;
   color: #e08080;
   font-size: 13px;
+}
+@media (max-width: 480px) {
+  .extract-overlay {
+    padding: 12px;
+  }
+  .extract-dialog {
+    padding: 18px;
+  }
 }
 
 .confirm-overlay {

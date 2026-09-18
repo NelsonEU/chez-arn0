@@ -1,5 +1,6 @@
-import { useEffect, useState, type ChangeEvent, type FormEvent } from 'react';
+import { useEffect, useRef, useState, type ChangeEvent, type FormEvent } from 'react';
 import { Link, useParams } from 'react-router-dom';
+import { ImageUp } from 'lucide-react';
 import ExtractPanel from '../../components/admin/ExtractPanel.tsx';
 import IngredientGroupBlock from '../../components/admin/IngredientGroupBlock.tsx';
 import StepRow from '../../components/admin/StepRow.tsx';
@@ -30,6 +31,7 @@ export default function AdminRecipeEditPage() {
   const [groups, setGroups] = useState<AdminIngredientGroup[] | null>(null);
   const [ingredients, setIngredients] = useState<AdminIngredient[] | null>(null);
   const [steps, setSteps] = useState<AdminRecipeStep[] | null>(null);
+  const photoInputRef = useRef<HTMLInputElement>(null);
 
   const [title, setTitle] = useState('');
   const [servings, setServings] = useState('');
@@ -232,7 +234,11 @@ export default function AdminRecipeEditPage() {
         <div className="field-row">
           <label>Photo</label>
           {recipe.image && <img className="photo-preview" src={recipe.image} alt="" />}
-          <input type="file" accept="image/*" onChange={handleImageChange} />
+          <input ref={photoInputRef} type="file" accept="image/*" onChange={handleImageChange} className="file-input-hidden" />
+          <button type="button" className="secondary" onClick={() => photoInputRef.current?.click()}>
+            <ImageUp size={18} />
+            {recipe.image ? 'Changer la photo' : 'Choisir une photo'}
+          </button>
         </div>
       </section>
 

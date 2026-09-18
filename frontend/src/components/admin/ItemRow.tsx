@@ -27,21 +27,23 @@ export default function ItemRow({ item, recipes, onUpdate, onDelete }: ItemRowPr
         onChange={(e) => setLabel(e.target.value)}
         onBlur={() => label.trim() && label !== item.label && onUpdate({ label: label.trim() })}
       />
-      <select
-        className="recipe-select"
-        value={item.recipe ?? ''}
-        onChange={(e) => onUpdate({ recipe: e.target.value ? Number(e.target.value) : null })}
-      >
-        <option value="">Aucune recette</option>
-        {recipes.map((r) => (
-          <option key={r.id} value={r.id}>
-            {r.title}
-          </option>
-        ))}
-      </select>
-      <button type="button" className="icon-btn danger" onClick={handleDelete} aria-label="Supprimer le plat">
-        <Trash2 size={16} />
-      </button>
+      <div className="item-row-secondary">
+        <select
+          className="recipe-select"
+          value={item.recipe ?? ''}
+          onChange={(e) => onUpdate({ recipe: e.target.value ? Number(e.target.value) : null })}
+        >
+          <option value="">Aucune recette</option>
+          {recipes.map((r) => (
+            <option key={r.id} value={r.id}>
+              {r.title}
+            </option>
+          ))}
+        </select>
+        <button type="button" className="icon-btn danger" onClick={handleDelete} aria-label="Supprimer le plat">
+          <Trash2 size={16} />
+        </button>
+      </div>
       {dialog}
     </div>
   );
