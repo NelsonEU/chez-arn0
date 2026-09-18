@@ -33,4 +33,4 @@ jobs:
           host: ${{ secrets.VPS_HOST }}
           username: ${{ secrets.VPS_USER }}
           key: ${{ secrets.VPS_DEPLOY_KEY }}
-          script: cd ~/apps/chez-arn0 && git pull && docker compose -f docker-compose.prod.yml up -d --build
+          script: cd ${{ secrets.VPS_DEPLOY_PATH }} && git pull && docker compose -f docker-compose.prod.yml up -d --build
