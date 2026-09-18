@@ -72,10 +72,6 @@ class RecipeDetailSerializer(RelativeImageMixin, serializers.ModelSerializer):
 
 
 # --- Admin (authenticated, full CRUD) serializers ---
-# Flat, one per model, every field (including id and FK ids) read/write, so
-# the admin frontend can create/update/delete each piece directly. `order` is
-# read-only here — it's managed by OrderedViewSetMixin (see views.py), not by
-# the client, so a normal create/update can't accidentally scramble ordering.
 
 
 class AdminCategorySerializer(serializers.ModelSerializer):
@@ -100,9 +96,6 @@ class AdminRecipeSerializer(serializers.ModelSerializer):
         read_only_fields = ["order", "published_at"]
 
     def to_representation(self, instance):
-        # Same reasoning as RelativeImageMixin above: force a relative URL on
-        # read, independent of whatever Host header the request arrived with,
-        # while still accepting a real uploaded file on write.
         data = super().to_representation(instance)
         if instance.image:
             data["image"] = instance.image.url

@@ -33,10 +33,6 @@ async function adminFetch<T>(url: string, options: RequestInit = {}): Promise<T>
   return response.json();
 }
 
-// A full CRUD + reorder resource, generic over the model type and its
-// create/update payload shape. `scopeField`, if set, is the FK field name
-// (matching the backend's OrderedViewSetMixin.order_scope_field) used to
-// scope the reorder call to one parent (e.g. one category's items).
 function crudResource<T extends { id: number }, TWrite>(basePath: string, scopeField?: string) {
   return {
     list(signal?: AbortSignal): Promise<T[]> {
@@ -81,8 +77,6 @@ export const AdminRepository = {
     'recipe'
   ),
 
-  // Recipes are multipart (image upload), so they don't fit the JSON-only
-  // crudResource shape, but they still reorder the same way as everything else.
   recipes: {
     list(params?: { unlinked?: boolean }, signal?: AbortSignal): Promise<AdminRecipe[]> {
       const query = params?.unlinked ? '?unlinked=true' : '';
