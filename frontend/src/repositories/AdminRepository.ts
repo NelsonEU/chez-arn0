@@ -95,10 +95,15 @@ export const AdminRepository = {
     publish(id: number, signal?: AbortSignal): Promise<AdminRecipe> {
       return adminFetch<AdminRecipe>(`/api/admin/recipes/${id}/publish/`, { method: 'POST', signal });
     },
-    extract(id: number, text: string, signal?: AbortSignal): Promise<ExtractedRecipe> {
+    extract(id: number, input: { text: string } | { image: File }, signal?: AbortSignal): Promise<ExtractedRecipe> {
+      if ('image' in input) {
+        const form = new FormData();
+        form.append('image', input.image);
+        return adminFetch<ExtractedRecipe>(`/api/admin/recipes/${id}/extract/`, { method: 'POST', body: form, signal });
+      }
       return adminFetch<ExtractedRecipe>(`/api/admin/recipes/${id}/extract/`, {
         method: 'POST',
-        body: JSON.stringify({ text }),
+        body: JSON.stringify({ text: input.text }),
         signal,
       });
     },

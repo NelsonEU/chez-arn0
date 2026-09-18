@@ -3,6 +3,7 @@ from typing import NotRequired, TypedDict
 
 from django.conf import settings
 from google import genai
+from google.genai import types
 
 # Shape matches the admin create serializers, minus title (already set on the recipe).
 
@@ -283,27 +284,41 @@ class ExtractionError(Exception):
     pass
 
 
-def extract_recipe(text: str, title: str) -> ExtractedRecipe:
+def extract_recipe(
+    title: str,
+    text: str | None = None,
+    image_bytes: bytes | None = None,
+    image_mime_type: str | None = None,
+) -> ExtractedRecipe:
     if not settings.GEMINI_API_KEY:
         raise ExtractionError("GEMINI_API_KEY is not configured.")
+    if not text and not image_bytes:
+        raise ExtractionError("Either text or an image is required.")
 
-    prompt = (
+    instructions = (
         "Extract this recipe into structured data, in French. "
-        "Only use what's actually in the text — never invent content for a "
+        "Only use what's actually there — never invent content for a "
         "field just because the schema has a slot for it. Omit optional "
         "fields entirely if there's nothing for them. The recipe's title is "
         f'"{title}" — it is already known, do not repeat it anywhere in '
         "your output. If there's only one ingredient group, leave its name "
         'empty rather than reusing a generic heading like "Ingrédients".\n\n'
         f"{_EXAMPLES_BLOCK}\n\n"
-        f"Now extract this one:\n{text.strip()}"
     )
+
+    if image_bytes:
+        contents = [
+            instructions + "Now extract the recipe shown in this photo.",
+            types.Part.from_bytes(data=image_bytes, mime_type=image_mime_type),
+        ]
+    else:
+        contents = instructions + f"Now extract this one:\n{text.strip()}"
 
     client = genai.Client(api_key=settings.GEMINI_API_KEY)
     try:
         response = client.models.generate_content(
             model=MODEL,
-            contents=prompt,
+            contents=contents,
             config={"response_mime_type": "application/json", "response_schema": ExtractedRecipe},
         )
     except Exception as exc:

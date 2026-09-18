@@ -171,10 +171,14 @@ class AdminRecipeViewSet(OrderedViewSetMixin, viewsets.ModelViewSet):
     def extract(self, request, pk=None):
         recipe = self.get_object()
         text = str(request.data.get("text", "")).strip()
-        if not text:
-            return Response({"detail": "Aucun texte fourni."}, status=400)
+        image = request.FILES.get("image")
+        if not text and not image:
+            return Response({"detail": "Texte ou photo requis."}, status=400)
         try:
-            extracted = extract_recipe(text, recipe.title)
+            if image:
+                extracted = extract_recipe(recipe.title, image_bytes=image.read(), image_mime_type=image.content_type)
+            else:
+                extracted = extract_recipe(recipe.title, text=text)
         except ExtractionError as e:
             return Response({"detail": str(e)}, status=502)
         return Response(extracted)

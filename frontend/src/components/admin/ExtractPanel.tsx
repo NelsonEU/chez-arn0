@@ -1,5 +1,5 @@
-import { useState } from 'react';
-import { Sparkles, X } from 'lucide-react';
+import { useMemo, useRef, useState, type ChangeEvent } from 'react';
+import { Camera, Sparkles, X } from 'lucide-react';
 import type { ExtractedRecipe } from '../../models/Admin.ts';
 import { AdminRepository } from '../../repositories/AdminRepository.ts';
 
@@ -10,18 +10,34 @@ interface ExtractPanelProps {
 
 export default function ExtractPanel({ recipeId, onExtracted }: ExtractPanelProps) {
   const [open, setOpen] = useState(false);
+  const [mode, setMode] = useState<'text' | 'image'>('text');
   const [text, setText] = useState('');
+  const [image, setImage] = useState<File | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
+  const imageUrl = useMemo(() => (image ? URL.createObjectURL(image) : null), [image]);
+  const fileInputRef = useRef<HTMLInputElement>(null);
+
+  function reset() {
+    setText('');
+    setImage(null);
+    setMode('text');
+    setError('');
+  }
+
+  function handleImageChange(e: ChangeEvent<HTMLInputElement>) {
+    setImage(e.target.files?.[0] ?? null);
+  }
 
   async function handleSubmit() {
-    if (!text.trim()) return;
+    const input = mode === 'image' ? (image ? { image } : null) : text.trim() ? { text: text.trim() } : null;
+    if (!input) return;
     setLoading(true);
     setError('');
     try {
-      const extracted = await AdminRepository.recipes.extract(recipeId, text.trim());
+      const extracted = await AdminRepository.recipes.extract(recipeId, input);
       await onExtracted(extracted);
-      setText('');
+      reset();
       setOpen(false);
     } catch (e) {
       setError(e instanceof Error ? e.message : "Échec de l'extraction.");
@@ -39,25 +55,89 @@ export default function ExtractPanel({ recipeId, onExtracted }: ExtractPanelProp
     );
   }
 
+  const canSubmit = mode === 'image' ? image != null : text.trim().length > 0;
+
   return (
-    <div className="extract-panel">
-      <div className="extract-panel-head">
-        <span>Coller le texte de la recette</span>
-        <button type="button" className="icon-btn" onClick={() => setOpen(false)}>
-          <X size={16} />
+    <div
+      className="extract-overlay"
+      onClick={() => {
+        if (!loading) {
+          reset();
+          setOpen(false);
+        }
+      }}
+    >
+      <div className="extract-dialog" onClick={(e) => e.stopPropagation()}>
+        <div className="extract-dialog-head">
+          <span>Remplir la recette avec l'IA</span>
+          <button
+            type="button"
+            className="icon-btn"
+            disabled={loading}
+            onClick={() => {
+              reset();
+              setOpen(false);
+            }}
+          >
+            <X size={16} />
+          </button>
+        </div>
+
+        <div className="extract-mode-toggle">
+          <button type="button" className={mode === 'text' ? 'active' : ''} disabled={loading} onClick={() => setMode('text')}>
+            Texte
+          </button>
+          <button type="button" className={mode === 'image' ? 'active' : ''} disabled={loading} onClick={() => setMode('image')}>
+            Photo
+          </button>
+        </div>
+
+        {mode === 'text' ? (
+          <textarea
+            value={text}
+            onChange={(e) => setText(e.target.value)}
+            disabled={loading}
+            placeholder="Collez ici le texte brut de la recette…"
+          />
+        ) : (
+          <div className="extract-photo-picker">
+            {image ? (
+              <div className="extract-photo-preview">
+                <img src={imageUrl!} alt="" />
+                <button type="button" className="icon-btn danger" disabled={loading} onClick={() => setImage(null)}>
+                  <X size={16} />
+                </button>
+              </div>
+            ) : (
+              <>
+                <input
+                  ref={fileInputRef}
+                  type="file"
+                  accept="image/*"
+                  capture="environment"
+                  disabled={loading}
+                  onChange={handleImageChange}
+                  className="file-input-hidden"
+                />
+                <button
+                  type="button"
+                  className="secondary"
+                  disabled={loading}
+                  onClick={() => fileInputRef.current?.click()}
+                >
+                  <Camera size={18} />
+                  Choisir ou prendre une photo
+                </button>
+              </>
+            )}
+          </div>
+        )}
+
+        {error && <p className="extract-error">{error}</p>}
+        <button type="button" onClick={handleSubmit} disabled={loading || !canSubmit}>
+          {loading ? 'Extraction…' : 'Extraire'}
         </button>
       </div>
-      <textarea
-        value={text}
-        onChange={(e) => setText(e.target.value)}
-        rows={10}
-        disabled={loading}
-        placeholder="Collez ici le texte brut de la recette…"
-      />
-      {error && <p className="extract-error">{error}</p>}
-      <button type="button" onClick={handleSubmit} disabled={loading || !text.trim()}>
-        {loading ? 'Extraction…' : 'Extraire'}
-      </button>
     </div>
   );
 }
