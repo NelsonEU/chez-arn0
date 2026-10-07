@@ -1,54 +1,46 @@
-.menu-page {
-  display: block;
-  max-width: 1120px;
-  margin: 0 auto;
-  padding: clamp(28px, 6vw, 44px) clamp(18px, 5vw, 28px) 72px;
-}
-.menu-page main {
-  columns: 252px;
-  column-gap: 40px;
-  max-width: 100%;
+.menu-page .categories {
+  columns: 320px;
+  column-gap: 24px;
 }
 .menu-page section {
   break-inside: avoid;
-  margin: 0 0 72px;
-}
-.menu-page .cat-head {
-  display: flex;
-  align-items: baseline;
-  justify-content: space-between;
-  gap: 12px;
-  padding-bottom: 8px;
-  border-bottom: 2px solid var(--accent-soft);
+  margin: 0 0 24px;
+  padding: 24px 28px 14px;
+  background: var(--surface);
+  border-radius: var(--radius-md);
+  font-size: 16px;
+  line-height: 1.4;
 }
 .menu-page h2 {
-  margin: 0;
-  font-size: 11px;
-  font-weight: 600;
-  letter-spacing: 0.22em;
-  text-transform: uppercase;
-  color: var(--accent);
+  margin: 0 0 14px;
+  font-weight: 700;
+  font-size: 22px;
+  line-height: 1.2;
+  letter-spacing: -0.03em;
 }
 .menu-page .item {
   display: flex;
   align-items: center;
   gap: 12px;
-  padding: 7px 6px 7px 0;
-  border-bottom: 1px solid var(--border-soft-2);
-  font-family: var(--font-serif-body);
-  font-size: 15.5px;
-  line-height: 1.4;
-  letter-spacing: 0.005em;
-  text-transform: uppercase;
+  padding: 10px 0;
+  border-top: 1px solid var(--tint);
   color: var(--text);
-  transition: color 0.15s ease, padding-left 0.15s ease;
 }
-.menu-page .item:hover {
+.menu-page .item.linked {
+  justify-content: space-between;
+  min-height: 44px;
+  box-sizing: border-box;
+  font-weight: 700;
   color: var(--accent);
-  padding-left: 5px;
+}
+.menu-page .item.linked:hover {
+  color: var(--text);
 }
 .menu-page .item .recipe-link-icon {
-  margin-left: auto;
   flex-shrink: 0;
-  color: var(--accent);
+}
+@media (max-width: 480px) {
+  .menu-page section {
+    padding: 20px 20px 10px;
+  }
 }

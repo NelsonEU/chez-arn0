@@ -9,10 +9,10 @@ export default function Layout() {
   useAdminEasterEgg();
 
   return (
-    <>
+    <div className="site">
       <SiteHeader page={page} />
       <Outlet />
       <SiteFooter />
-    </>
+    </div>
   );
 }
