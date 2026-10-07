@@ -68,18 +68,7 @@ class RecipeDetailSerializer(RelativeImageMixin, serializers.ModelSerializer):
 
     class Meta:
         model = Recipe
-        fields = [
-            "id",
-            "slug",
-            "title",
-            "servings",
-            "description",
-            "note",
-            "image",
-            "ingredients",
-            "steps",
-            "published_at",
-        ]
+        fields = ["id", "slug", "title", "servings", "description", "note", "image", "ingredients", "steps"]
 
 
 # --- Admin (authenticated, full CRUD) serializers ---

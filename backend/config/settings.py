@@ -20,6 +20,9 @@ CSRF_TRUSTED_ORIGINS = [
 
 ADMIN_PASSWORD = os.environ["ADMIN_PASSWORD"]
 
+# Public origin for absolute URLs in share/SEO tags; falls back to the request's own origin
+SITE_URL = os.environ.get("SITE_URL", "").rstrip("/")
+
 # Optional: a missing key disables the AI-assisted recipe entry feature
 GEMINI_API_KEY = os.environ.get("GEMINI_API_KEY", "")
 

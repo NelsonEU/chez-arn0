@@ -1,8 +1,9 @@
 from django.conf import settings
 from django.contrib import admin
 from django.urls import include, path, re_path
-from django.views.generic import TemplateView
 from django.views.static import serve
+
+from content.pages import spa
 
 urlpatterns = [
     # Django's own built-in admin — deliberately NOT at "admin/", which is
@@ -34,5 +35,5 @@ urlpatterns += [
 # Only reachable in production (frontend_dist only exists there — see
 # FRONTEND_DIST in settings.py); in dev, Vite's own server handles this.
 urlpatterns += [
-    re_path(r"^(?!api/|django-admin/|media/|assets/).*$", TemplateView.as_view(template_name="index.html")),
+    re_path(r"^(?!api/|django-admin/|media/|assets/).*$", spa),
 ]

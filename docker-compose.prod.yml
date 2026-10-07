@@ -37,6 +37,7 @@ services:
       GEMINI_API_KEY: ${GEMINI_API_KEY}
       PORT: ${PORT}
       SECRET_KEY: ${SECRET_KEY}
+      SITE_URL: ${SITE_URL}
     volumes:
       - media:/app/media
     restart: unless-stopped

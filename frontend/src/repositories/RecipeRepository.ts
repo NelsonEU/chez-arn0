@@ -26,7 +26,6 @@ interface RawRecipeDetail extends RawRecipeSummary {
   note: string;
   ingredients: RawIngredientGroup[];
   steps: string[];
-  published_at: string | null;
 }
 
 interface RawRecipeList {
@@ -58,7 +57,6 @@ function mapDetail(raw: RawRecipeDetail): RecipeDetail {
     note: raw.note,
     ingredients: raw.ingredients.map(mapGroup),
     steps: raw.steps,
-    publishedAt: raw.published_at,
   };
 }
 

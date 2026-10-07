@@ -108,17 +108,6 @@ def test_published_recipe_appears_on_public_list(api_client):
     assert recipe.slug in slugs
 
 
-def test_published_recipe_detail_exposes_its_publish_date(api_client):
-    recipe = make_complete_recipe()
-    recipe.published_at = timezone.now()
-    recipe.save(update_fields=["published_at"])
-
-    response = api_client.get(f"/api/recipes/{recipe.id}/")
-
-    assert response.status_code == 200
-    assert response.data["published_at"] is not None
-
-
 def test_draft_recipe_detail_404s_publicly(api_client):
     recipe = make_recipe(title="Draft")
 

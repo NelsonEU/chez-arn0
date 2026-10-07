@@ -24,5 +24,4 @@ export interface RecipeDetail extends RecipeSummary {
   note: string;
   ingredients: IngredientGroup[];
   steps: string[];
-  publishedAt: string | null;
 }
