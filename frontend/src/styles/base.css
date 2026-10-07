@@ -1,26 +1,23 @@
 :root {
-  --bg: #1B2738;
-  --bg-panel: #223148;
-  --text: #E7ECF3;
-  --text-strong: #F1F4F9;
-  --text-muted: #9EAABB;
-  --accent: #EFAE84;
-  --accent-soft: rgba(232, 168, 124, 0.6);
-  --border-soft: rgba(232, 240, 250, 0.14);
-  --border-soft-2: rgba(232, 240, 250, 0.13);
-  --border-soft-3: rgba(232, 240, 250, 0.18);
-  --font-serif-display: 'Cormorant Garamond', Georgia, serif;
-  --font-serif-body: 'Source Serif 4', Georgia, serif;
-  --font-sans: 'IBM Plex Sans', system-ui, sans-serif;
+  --bg: #FAF8F3;
+  --surface: #FFFFFF;
+  --tint: #ECEEE4;
+  --text: #23261F;
+  --text-muted: #5C6455;
+  --accent: #3F5A3B;
+  --border: #D7DBCD;
+  --danger: #A23B2C;
+  --danger-tint: #F6E6E2;
+  --radius-lg: 28px;
+  --radius-md: 24px;
+  --radius-sm: 16px;
+  --font-sans: 'Plus Jakarta Sans', 'Helvetica Neue', sans-serif;
 }
 
 body {
   margin: 0;
   min-height: 100vh;
   background: var(--bg);
-  background-image:
-    radial-gradient(1100px 620px at 8% -8%, rgba(232, 168, 124, 0.13), transparent 68%),
-    radial-gradient(900px 640px at 102% 4%, rgba(120, 165, 215, 0.16), transparent 70%);
   color: var(--text);
   font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;
@@ -32,5 +29,45 @@ a {
   text-decoration: none;
 }
 a:hover {
-  color: var(--text-strong);
+  color: var(--text);
+}
+
+.site {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.page {
+  flex-grow: 1;
+  max-width: 1200px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 48px 32px 88px;
+  box-sizing: border-box;
+}
+@media (max-width: 640px) {
+  .page {
+    padding: 32px 16px 64px;
+  }
+}
+.page-title {
+  margin: 0 0 40px;
+  font-weight: 700;
+  font-size: clamp(36px, 4.4vw, 56px);
+  line-height: 1.05;
+  letter-spacing: -0.035em;
+}
+
+.empty {
+  color: var(--text-muted);
+}
+
+.image-placeholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--tint);
+  font-weight: 700;
+  color: var(--accent);
 }

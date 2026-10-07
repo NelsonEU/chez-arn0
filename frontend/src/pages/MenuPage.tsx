@@ -6,16 +6,17 @@ import '../styles/menu-page.css';
 
 export default function MenuPage() {
   useDocumentTitle('Chez Arnaud — Menu');
-  const { data: menu } = useAsync((signal) => MenuRepository.getMenu(signal), []);
+  const { data: menu } = useAsync(() => MenuRepository.getMenu(), []);
   const categories = menu?.categories ?? [];
 
   return (
-    <div className="menu-page">
-      <main>
+    <main className="page menu-page">
+      <h1 className="page-title">La carte de la maison</h1>
+      <div className="categories">
         {categories.map((cat) => (
           <MenuCategory category={cat} key={cat.name} />
         ))}
-      </main>
-    </div>
+      </div>
+    </main>
   );
 }

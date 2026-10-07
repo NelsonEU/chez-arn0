@@ -13,10 +13,11 @@
   margin-bottom: 28px;
 }
 .admin-page h1 {
-  font-family: var(--font-serif-display);
-  font-size: clamp(24px, 6vw, 32px);
-  color: var(--text-strong);
+  font-weight: 700;
+  font-size: clamp(28px, 6vw, 40px);
+  line-height: 1.05;
   margin: 0 0 24px;
+  letter-spacing: -0.035em;
 }
 .admin-topbar h1 {
   margin: 0;
@@ -29,10 +30,10 @@
   gap: 10px;
 }
 .admin-page h2 {
-  font-family: var(--font-serif-display);
+  font-weight: 700;
   font-size: 22px;
-  color: var(--text-strong);
   margin: 0;
+  letter-spacing: -0.03em;
 }
 .admin-page a {
   color: var(--accent);
@@ -58,13 +59,19 @@
 .admin-page select,
 .admin-page textarea {
   background: var(--bg);
-  border: 1px solid var(--border-soft);
+  border: 1px solid var(--border);
   color: var(--text);
   padding: 11px 14px;
-  border-radius: 6px;
+  border-radius: 12px;
   font-family: inherit;
   font-size: 15px;
   box-sizing: border-box;
+}
+.admin-page input:focus,
+.admin-page select:focus,
+.admin-page textarea:focus {
+  outline: none;
+  border-color: var(--accent);
 }
 .admin-page textarea {
   width: 100%;
@@ -74,17 +81,18 @@
   appearance: none;
   -webkit-appearance: none;
   padding-right: 34px;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%239EAABB' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%235C6455' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
   background-repeat: no-repeat;
   background-position: right 10px center;
   background-size: 14px;
 }
 .admin-page button {
   background: var(--accent);
-  color: var(--bg);
+  color: var(--surface);
   border: none;
-  padding: 11px 18px;
-  border-radius: 6px;
+  padding: 11px 20px;
+  border-radius: 999px;
+  font-family: inherit;
   font-size: 14px;
   font-weight: 600;
   cursor: pointer;
@@ -98,22 +106,24 @@
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  background: transparent;
-  border: 1px solid var(--border-soft-3);
-  color: var(--text-muted);
-  font-weight: 500;
+  background: var(--tint);
+  border: none;
+  color: var(--accent);
+  font-weight: 600;
   text-decoration: none;
 }
+.admin-page button.secondary:hover,
+.admin-page a.secondary:hover {
+  color: var(--text);
+}
 .admin-page a.secondary {
-  padding: 11px 18px;
-  border-radius: 6px;
+  padding: 11px 20px;
+  border-radius: 999px;
   font-size: 14px;
 }
 .admin-page button.danger {
-  background: transparent;
-  border: 1px solid rgba(220, 100, 100, 0.4);
-  color: #e08080;
-  font-weight: 500;
+  background: var(--danger);
+  color: var(--surface);
 }
 
 /* Scoped under .admin-page (2 classes) so these reliably out-specify the
@@ -129,24 +139,21 @@
   height: 34px;
   padding: 0;
   flex-shrink: 0;
-  background: transparent;
-  border: 1px solid var(--border-soft-3);
-  border-radius: 6px;
+  background: var(--tint);
+  border: none;
+  border-radius: 999px;
   color: var(--text-muted);
   cursor: pointer;
 }
 .admin-page .icon-btn:hover {
-  color: var(--text-strong);
-  border-color: var(--border-soft-3);
+  color: var(--text);
 }
 .admin-page .icon-btn.danger {
   background: transparent;
-  border-color: rgba(220, 100, 100, 0.35);
-  color: #e08080;
+  color: var(--danger);
 }
 .admin-page .icon-btn.danger:hover {
-  background: rgba(220, 100, 100, 0.12);
-  color: #e89a9a;
+  background: var(--danger-tint);
 }
 .icon-btn svg {
   width: 16px;
@@ -163,10 +170,9 @@
   margin-bottom: 0;
 }
 .admin-page .field-row label {
-  font-size: 12px;
+  font-size: 14px;
+  font-weight: 600;
   color: var(--text-muted);
-  text-transform: uppercase;
-  letter-spacing: 0.06em;
 }
 .admin-page .field-row input {
   width: 100%;
@@ -183,10 +189,10 @@
   font-family: var(--font-sans);
 }
 .admin-login-page h1 {
-  font-family: var(--font-serif-display);
+  font-weight: 700;
   font-size: 32px;
-  color: var(--text-strong);
   margin: 0;
+  letter-spacing: -0.035em;
 }
 .admin-login-page .login-form {
   width: 100%;
@@ -199,17 +205,30 @@
 .admin-login-page .login-form input {
   padding: 14px 16px;
   font-size: 16px;
-  border-radius: 6px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  color: var(--text);
+  font-family: inherit;
+}
+.admin-login-page .login-form input:focus {
+  outline: none;
+  border-color: var(--accent);
 }
 .admin-login-page .login-form button {
   padding: 14px 16px;
   font-size: 16px;
-  border-radius: 6px;
+  background: var(--accent);
+  color: var(--surface);
+  border: none;
+  border-radius: 999px;
+  font-family: inherit;
   font-weight: 600;
+  cursor: pointer;
 }
 
 .error {
-  color: #e08080;
+  color: var(--danger);
   font-size: 13px;
   margin: 0;
 }
@@ -222,15 +241,15 @@
 .admin-page td {
   text-align: left;
   padding: 10px 8px;
-  border-bottom: 1px solid var(--border-soft-2);
+  border-bottom: 1px solid var(--tint);
   font-size: 14px;
 }
 .admin-page .thumb {
   width: 48px;
   height: 36px;
   object-fit: cover;
-  border-radius: 4px;
-  background: var(--bg);
+  border-radius: 8px;
+  background: var(--tint);
   display: block;
 }
 .admin-page .photo-preview {
@@ -238,17 +257,16 @@
   max-width: 100%;
   height: 180px;
   object-fit: cover;
-  border-radius: 8px;
-  background: var(--bg);
+  border-radius: var(--radius-sm);
+  background: var(--tint);
   display: block;
   margin-bottom: 10px;
 }
 
 /* Card-style top-level sections (Recettes, Menu, recipe-edit groups) */
 .admin-section {
-  background: var(--bg-panel);
-  border: 1px solid var(--border-soft-2);
-  border-radius: 12px;
+  background: var(--surface);
+  border-radius: var(--radius-md);
   padding: 24px clamp(18px, 4vw, 28px);
   margin-bottom: 28px;
 }
@@ -259,7 +277,7 @@
   gap: 12px;
   margin-bottom: 18px;
   padding-bottom: 14px;
-  border-bottom: 1px solid var(--border-soft-2);
+  border-bottom: 1px solid var(--tint);
 }
 .admin-section-head h2 {
   margin: 0;
@@ -272,10 +290,9 @@
   margin-top: 4px;
 }
 .admin-section h3 {
-  font-size: 13px;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  color: var(--text-muted);
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--accent);
   margin: 0 0 10px;
 }
 
@@ -289,7 +306,7 @@
   align-items: flex-start;
   gap: 10px;
   padding: 10px 0;
-  border-bottom: 1px solid var(--border-soft-2);
+  border-bottom: 1px solid var(--tint);
 }
 .drag-handle {
   cursor: grab;
@@ -389,18 +406,18 @@
   min-width: 0;
   background: transparent;
   border: 1px solid transparent;
-  color: var(--text-strong);
+  color: var(--text);
   font-size: 16px;
-  font-weight: 600;
+  font-weight: 700;
   padding: 6px 8px;
-  border-radius: 5px;
+  border-radius: 10px;
 }
 .block-head .name-input:hover {
-  border-color: var(--border-soft);
+  border-color: var(--border);
 }
 .block-head .name-input:focus {
   background: var(--bg);
-  border-color: var(--border-soft-3);
+  border-color: var(--accent);
   outline: none;
 }
 .block-head .item-count {
@@ -423,12 +440,13 @@
   white-space: nowrap;
 }
 .status-badge.published {
-  color: #8fd4a8;
-  background: rgba(143, 212, 168, 0.12);
+  color: var(--accent);
+  background: var(--tint);
 }
 .status-badge.draft {
   color: var(--text-muted);
-  background: rgba(232, 240, 250, 0.08);
+  background: var(--bg);
+  box-shadow: inset 0 0 0 1px var(--border);
 }
 
 .admin-page .row-actions {
@@ -456,6 +474,7 @@
   position: fixed;
   bottom: 24px;
   right: 24px;
+  box-shadow: 0 8px 24px rgba(35, 38, 31, 0.2);
   display: inline-flex;
   align-items: center;
   gap: 8px;
@@ -467,7 +486,7 @@
 .extract-overlay {
   position: fixed;
   inset: 0;
-  background: rgba(10, 15, 24, 0.6);
+  background: rgba(35, 38, 31, 0.4);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -479,9 +498,8 @@
   max-width: calc(100vw - 48px);
   max-height: calc(100vh - 48px);
   overflow-y: auto;
-  background: var(--bg-panel);
-  border: 1px solid var(--border-soft-3);
-  border-radius: 12px;
+  background: var(--surface);
+  border-radius: var(--radius-md);
   padding: 28px;
   display: flex;
   flex-direction: column;
@@ -492,8 +510,8 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  font-weight: 600;
-  color: var(--text-strong);
+  font-weight: 700;
+  color: var(--text);
 }
 .extract-dialog textarea {
   min-height: 260px;
@@ -502,27 +520,26 @@
   display: inline-flex;
   gap: 4px;
   padding: 4px;
-  border: 1px solid var(--border-soft-3);
-  border-radius: 8px;
+  background: var(--tint);
+  border-radius: 999px;
   align-self: flex-start;
 }
-.extract-mode-toggle button {
+.admin-page .extract-mode-toggle button {
   background: transparent;
   color: var(--text-muted);
-  padding: 7px 16px;
-  border-radius: 5px;
+  padding: 8px 18px;
 }
-.extract-mode-toggle button.active {
-  background: var(--accent);
-  color: var(--bg);
+.admin-page .extract-mode-toggle button.active {
+  background: var(--surface);
+  color: var(--text);
 }
 .extract-photo-picker {
   min-height: 260px;
   display: flex;
   align-items: center;
   justify-content: center;
-  border: 1px dashed var(--border-soft-3);
-  border-radius: 8px;
+  border: 1px dashed var(--border);
+  border-radius: var(--radius-sm);
 }
 .file-input-hidden {
   display: none;
@@ -536,17 +553,17 @@
   width: 100%;
   height: 100%;
   object-fit: contain;
-  border-radius: 6px;
+  border-radius: 12px;
 }
-.extract-photo-preview .icon-btn {
+.admin-page .extract-photo-preview .icon-btn {
   position: absolute;
   top: 8px;
   right: 8px;
-  background: var(--bg-panel);
+  background: var(--surface);
 }
 .extract-error {
   margin: 0;
-  color: #e08080;
+  color: var(--danger);
   font-size: 13px;
 }
 @media (max-width: 480px) {
@@ -561,7 +578,7 @@
 .confirm-overlay {
   position: fixed;
   inset: 0;
-  background: rgba(10, 15, 24, 0.6);
+  background: rgba(35, 38, 31, 0.4);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -569,9 +586,8 @@
   z-index: 100;
 }
 .confirm-dialog {
-  background: var(--bg-panel);
-  border: 1px solid var(--border-soft-3);
-  border-radius: 12px;
+  background: var(--surface);
+  border-radius: var(--radius-md);
   padding: 24px;
   max-width: 360px;
   width: 100%;

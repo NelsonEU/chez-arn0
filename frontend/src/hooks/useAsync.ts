@@ -15,10 +15,13 @@ export function useAsync<T>(fn: AsyncFn<T> | null, deps: unknown[]) {
     const controller = new AbortController();
     setData(null);
     setError(null);
+    // Ignore results that land after cleanup (unmount or deps change)
     fn(controller.signal)
-      .then(setData)
+      .then((result) => {
+        if (!controller.signal.aborted) setData(result);
+      })
       .catch((e: Error) => {
-        if (e.name !== 'AbortError') setError(e);
+        if (!controller.signal.aborted && e.name !== 'AbortError') setError(e);
       });
     return () => controller.abort();
   }, deps);

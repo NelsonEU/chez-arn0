@@ -22,19 +22,19 @@ function mapCategory(raw: RawMenuCategory): MenuCategory {
   return { name: raw.name, items: raw.items.map(mapItem) };
 }
 
-// Cached for the lifetime of the page session (cleared on a full reload)
+// Cached for the lifetime of the page session (cleared on a full reload); shared, so not tied to a caller's AbortSignal
 let cachedMenu: Promise<Menu> | null = null;
 
-async function fetchMenu(signal?: AbortSignal): Promise<Menu> {
-  const response = await fetch('/api/menu/', { signal });
+async function fetchMenu(): Promise<Menu> {
+  const response = await fetch('/api/menu/');
   const raw: RawMenu = await response.json();
   return { categories: raw.categories.map(mapCategory) };
 }
 
 export const MenuRepository = {
-  getMenu(signal?: AbortSignal): Promise<Menu> {
+  getMenu(): Promise<Menu> {
     if (!cachedMenu) {
-      cachedMenu = fetchMenu(signal).catch((error) => {
+      cachedMenu = fetchMenu().catch((error) => {
         cachedMenu = null;
         throw error;
       });

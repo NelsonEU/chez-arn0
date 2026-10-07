@@ -26,6 +26,7 @@ interface RawRecipeDetail extends RawRecipeSummary {
   note: string;
   ingredients: RawIngredientGroup[];
   steps: string[];
+  published_at: string | null;
 }
 
 interface RawRecipeList {
@@ -57,29 +58,30 @@ function mapDetail(raw: RawRecipeDetail): RecipeDetail {
     note: raw.note,
     ingredients: raw.ingredients.map(mapGroup),
     steps: raw.steps,
+    publishedAt: raw.published_at,
   };
 }
 
-// Both cached for the lifetime of the page session
+// Both cached for the lifetime of the page session; shared, so not tied to a caller's AbortSignal
 let cachedList: Promise<RecipeSummary[]> | null = null;
 const cachedDetails = new Map<string, Promise<RecipeDetail>>();
 
-async function fetchList(signal?: AbortSignal): Promise<RecipeSummary[]> {
-  const response = await fetch('/api/recipes/', { signal });
+async function fetchList(): Promise<RecipeSummary[]> {
+  const response = await fetch('/api/recipes/');
   const raw: RawRecipeList = await response.json();
   return raw.recipes.map(mapSummary);
 }
 
-async function fetchDetail(id: number, signal?: AbortSignal): Promise<RecipeDetail> {
-  const response = await fetch(`/api/recipes/${id}/`, { signal });
+async function fetchDetail(id: number): Promise<RecipeDetail> {
+  const response = await fetch(`/api/recipes/${id}/`);
   const raw: RawRecipeDetail = await response.json();
   return mapDetail(raw);
 }
 
 export const RecipeRepository = {
-  list(signal?: AbortSignal): Promise<RecipeSummary[]> {
+  list(): Promise<RecipeSummary[]> {
     if (!cachedList) {
-      cachedList = fetchList(signal).catch((error) => {
+      cachedList = fetchList().catch((error) => {
         cachedList = null;
         throw error;
       });
@@ -87,15 +89,15 @@ export const RecipeRepository = {
     return cachedList;
   },
 
-  getBySlug(slug: string, signal?: AbortSignal): Promise<RecipeDetail> {
+  getBySlug(slug: string): Promise<RecipeDetail> {
     if (!cachedDetails.has(slug)) {
-      const promise = RecipeRepository.list(signal)
+      const promise = RecipeRepository.list()
         .then((summaries) => {
           const match = summaries.find((r) => r.slug === slug);
           if (!match) {
             throw new Error(`Recipe not found: ${slug}`);
           }
-          return fetchDetail(match.id, signal);
+          return fetchDetail(match.id);
         })
         .catch((error) => {
           cachedDetails.delete(slug);
