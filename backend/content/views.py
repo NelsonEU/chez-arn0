@@ -1,5 +1,6 @@
 import secrets
 
+import sentry_sdk
 from django.conf import settings
 from django.contrib.auth import login, logout
 from django.contrib.auth.models import User
@@ -180,6 +181,8 @@ class AdminRecipeViewSet(OrderedViewSetMixin, viewsets.ModelViewSet):
             else:
                 extracted = extract_recipe(recipe.title, text=text)
         except ExtractionError as e:
+            # Handled for the user, but still worth knowing about (Gemini down, timeout, missing key).
+            sentry_sdk.capture_exception(e)
             return Response({"detail": str(e)}, status=502)
         return Response(extracted)
 
