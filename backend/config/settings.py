@@ -26,6 +26,14 @@ SITE_URL = os.environ.get("SITE_URL", "").rstrip("/")
 # Optional: a missing key disables the AI-assisted recipe entry feature
 GEMINI_API_KEY = os.environ.get("GEMINI_API_KEY", "")
 
+# Optional: only production sets a DSN, so dev and CI never report errors.
+# Errors only — no tracing, and no PII (IPs, cookies) since send_default_pii stays off.
+SENTRY_DSN = os.environ.get("SENTRY_DSN", "")
+if SENTRY_DSN:
+    import sentry_sdk
+
+    sentry_sdk.init(dsn=SENTRY_DSN, environment="production")
+
 # The dev-friendly defaults above (insecure secret key, wildcard host) are
 # fine for local Docker Compose, but would be a real hole if the production
 # .env ever forgot to set them. Fail loudly instead of running insecurely.
