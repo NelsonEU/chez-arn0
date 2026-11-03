@@ -314,7 +314,11 @@ def extract_recipe(
     else:
         contents = instructions + f"Now extract this one:\n{text.strip()}"
 
-    client = genai.Client(api_key=settings.GEMINI_API_KEY)
+    # Bounded below gunicorn's timeout so a slow call raises here instead of killing the worker.
+    client = genai.Client(
+        api_key=settings.GEMINI_API_KEY,
+        http_options=types.HttpOptions(timeout=90_000),
+    )
     try:
         response = client.models.generate_content(
             model=MODEL,
